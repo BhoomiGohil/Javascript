@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Home</title>
+    <link href="../styles/Index.css" rel="stylesheet" type="text/css" />
+    <link rel="short icon" href="../Images/title.png" />
+
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.js"
+      integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+      crossorigin="anonymous"
+    ></script>
+    
+    <script>
+      $(function () {
+        $("#includedHeadScript").load("HeadScript.html");
+      });
+    </script>
+
+    <script id="includedHeadScript"></script>
+  </head>
+
+  <body onload="homeOnload()">
+    <div class="content-wrapper">
+      <div id="includedHeader"></div>
+      <section class="no-background">
+        <div class="slider">
+          <div class="slider-left-button" onclick="slider('left')"></div>
+          <div class="slider-show">
+            <img id="" src="" class="slider-image" />
+            <div class="slider-detail">
+              <div class="slider-title"></div>
+            </div>
+          </div>
+          <div class="slider-right-button" onclick="slider('right')"></div>
+        </div>
+      </section>
+      <div id="includedFooter"></div>
+    </div>
+    <script src="../Javascript.js"></script>
+  </body>
+</html>

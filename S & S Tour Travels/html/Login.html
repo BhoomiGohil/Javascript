@@ -1,0 +1,229 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Login</title>
+    <link href="../styles/Index.css" rel="stylesheet" type="text/css" />
+    <link rel="short icon" href="Images/title.png" />
+
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.js"
+      integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      $(function () {
+        $("#includedHeadScript").load("HeadScript.html");
+      });
+    </script>
+
+    <script id="includedHeadScript"></script>
+  </head>
+
+  <body onload="loginOnload()">
+    <div class="content-wrapper">
+      <header>
+        <a class="brand-link" href="Home.html"
+          ><img src="../Images/Logo.png" class="brand"
+        /></a>
+        <div class="navigation">
+          <a href="Home.html">Home</a>
+          <a href="Reservation.html">Reservation</a>
+          <a href="Contact.html">Contact Us</a>
+          <a href="Login.html">Login</a>
+          <a href="Login.html" class="logout-button">Logout</a>
+        </div>
+      </header>
+      <section>
+        <div class="login">
+          <form class="login-form" name="login">
+            <div class="section-header">LOGIN</div>
+            <div class="booking-form">
+              <div class="booking-form-input">
+                USER NAME
+                <div class="text-msg" id="username">Enter User Name</div>
+                <input
+                  type="text"
+                  name="username"
+                  class="form-input-select"
+                  id="u"
+                  onfocus="textfocus(this.name)"
+                  onblur="textblur(this.name,this.id)"
+                />
+              </div>
+              <div class="booking-form-input">
+                PASSWORD
+                <div class="text-msg" id="password">Enter Password</div>
+                <input
+                  type="password"
+                  name="password"
+                  class="form-input-select"
+                  id="p"
+                  onfocus="textfocus(this.name)"
+                  onblur="textblur(this.name,this.id)"
+                />
+              </div>
+              <div class="booking-form-buttons">
+                <input type="button" value="SIGN IN" class="btn" />
+                <input
+                  type="button"
+                  value="SIGN UP"
+                  class="btn"
+                  onclick="signUp()"
+                />
+              </div>
+            </div>
+          </form>
+          <div class="login-slide">
+            <img src="../Images/Place1.gif" class="image login-img-slider" />
+            <div class="login-img-slider-name">LONDON</div>
+          </div>
+        </div>
+        <div class="main-registration">
+          <form class="login-form" name="signup">
+            <div class="section-header">REGISTRATION</div>
+            <div class="booking-form">
+              <div class="booking-form-input">
+                TITLE
+                <div class="text-msg" id="title">Select Title</div>
+                <select
+                  class="form-input-select"
+                  name="title"
+                  id="t"
+                  onfocus="textfocus(this.name)"
+                  onblur="textblur(this.name,this.id)"
+                >
+                  <option
+                    selected="selected"
+                    value="PLEASE SELECT"
+                    disabled="disabled"
+                  >
+                    PLEASE SELECT
+                  </option>
+                  <option value="Mr.">Mr.</option>
+                  <option value="Mrs.">Mrs.</option>
+                  <option value="Ms.">Ms.</option>
+                </select>
+              </div>
+              <div class="booking-form-input">
+                FIRST NAME
+                <div class="text-msg" id="firstname">Enter First Name</div>
+                <input
+                  class="form-input-select"
+                  type="text"
+                  name="firstname"
+                  id="fn"
+                  onfocus="textfocus(this.name)"
+                  onblur="textblur(this.name,this.id)"
+                />
+              </div>
+              <div class="booking-form-input">
+                LAST NAME
+                <div class="text-msg" id="lastname">Enter Last Name</div>
+                <input
+                  class="form-input-select"
+                  type="text"
+                  name="lastname"
+                  id="ln"
+                  onfocus="textfocus(this.name)"
+                  onblur="textblur(this.name,this.id)"
+                />
+              </div>
+              <div class="booking-form-input">
+                CITY
+                <div class="text-msg" id="city">Enter City</div>
+                <input
+                  type="text"
+                  class="form-input-select"
+                  name="city"
+                  id="ct"
+                  onfocus="textfocus(this.name)"
+                  onblur="textblur(this.name,this.id)"
+                />
+              </div>
+              <div class="booking-form-input">
+                STATE
+                <div class="text-msg" id="state">Enter State</div>
+                <input
+                  class="form-input-select"
+                  type="text"
+                  name="state"
+                  id="s"
+                  onfocus="textfocus(this.name)"
+                  onblur="textblur(this.name,this.id)"
+                />
+              </div>
+              <div class="booking-form-input">
+                COUNTRY
+                <div class="text-msg" id="country">Enter Country</div>
+                <input
+                  class="form-input-select"
+                  type="text"
+                  name="country"
+                  id="c"
+                  onfocus="textfocus(this.name)"
+                  onblur="textblur(this.name,this.id)"
+                />
+              </div>
+              <div class="booking-form-input">
+                E-MAIL
+                <div class="text-msg" id="email">Enter Email</div>
+                <input
+                  class="form-input-select"
+                  type="text"
+                  name="email"
+                  id="e"
+                  onfocus="textfocus(this.name)"
+                  onblur="textblur(this.name,this.id)"
+                />
+              </div>
+              <div class="booking-form-input">
+                PHONE NO
+                <div class="text-msg" id="phone">Enter Phone Number</div>
+                <input
+                  class="form-input-select"
+                  type="text"
+                  name="phone"
+                  id="ph"
+                  onfocus="textfocus(this.name)"
+                  onblur="textblur(this.name,this.id)"
+                />
+              </div>
+              <div class="booking-form-input">
+                ADDRESS
+                <div class="text-msg" id="address">Enter Address</div>
+                <textarea
+                  class="form-input-select textarea"
+                  name="address"
+                  id="a"
+                  onfocus="textfocus(this.name)"
+                  onblur="textblur(this.name,this.id)"
+                ></textarea>
+              </div>
+              <div class="booking-form-buttons">
+                <input type="button" class="btn" value="SUBMIT" />
+                <input
+                  type="button"
+                  class="btn"
+                  value="SIGN IN"
+                  onclick="signIn()"
+                />
+              </div>
+            </div>
+          </form>
+        </div>
+      </section>
+      <footer>
+        <div class="footer-tagline">
+          Travel With Us On Your Favourite Destination
+        </div>
+        <div class="footer-copyright">
+          © 2018 S & S Company Limited All Rights Reserved.
+        </div>
+      </footer>
+    </div>
+
+    <script src="../Javascript.js"></script>
+  </body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Reservation</title>
+    <link href="../styles/Index.css" rel="stylesheet" type="text/css" />
+    <link rel="short icon" href="Images/title.png" />
+
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.js"
+      integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      $(function () {
+        $("#includedHeadScript").load("HeadScript.html");
+      });
+    </script>
+
+    <script id="includedHeadScript"></script>
+  </head>
+
+  <body>
+    <div class="content-wrapper">
+      <header>
+        <a class="brand-link" href="Home.html"
+          ><img src="../Images/Logo.png" class="brand"
+        /></a>
+        <div class="navigation">
+          <a href="Home.html">Home</a>
+          <a href="Reservation.html">Reservation</a>
+          <a href="Contact.html">Contact Us</a>
+          <a href="Login.html">Login</a>
+          <a href="Login.html" class="logout-button">Logout</a>
+        </div>
+      </header>
+      <div class="reservation-by-selections">
+        <div
+          class="reservation-by-selection"
+          onclick="reservationName(this.innerHTML)"
+        >
+          FLIGHT
+        </div>
+        <div
+          class="reservation-by-selection"
+          onclick="reservationName(this.innerHTML)"
+        >
+          RAILWAY
+        </div>
+        <div
+          class="reservation-by-selection"
+          onclick="reservationName(this.innerHTML)"
+        >
+          BUS
+        </div>
+      </div>
+      <section>
+        <div class="reservation">
+          <div class="section-header" id="reservation-heading">
+            FLIGHT RESERVATION
+          </div>
+          <form class="booking-form" name="form">
+            <div class="booking-form-input-buttons">
+              <div class="booking-form-input-button">
+                <input
+                  type="radio"
+                  name="journeyway"
+                  value="ONEWAY"
+                  checked="checked"
+                />ONE WAY
+              </div>
+              <div class="booking-form-input-button">
+                <input type="radio" name="journeyway" value="RETURN" />RETURN
+              </div>
+            </div>
+            <div class="booking-form-inputs">
+              <div class="booking-form-input">
+                LEAVING FROM
+                <select name="leaving" class="form-input-select">
+                  <option value="MUMBAI" selected="selected">MUMBAI</option>
+                  <option value="DELHI">DELHI</option>
+                  <option value="BANGLORE">BANGLORE</option>
+                </select>
+              </div>
+              <div class="booking-form-input">
+                GOING TO
+                <select name="going" class="form-input-select">
+                  <option value="MUMBAI" selected="selected" id="1">
+                    MUMBAI
+                  </option>
+                  <option value="DELHI">DELHI</option>
+                  <option value="BANGLORE">BANGLORE</option>
+                </select>
+              </div>
+
+              <div class="booking-form-input">
+                ADULTS
+                <select name="adult" class="form-input-select">
+                  <option value="1" selected="selected">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                </select>
+              </div>
+              <div class="booking-form-input">
+                CHILDREN
+                <select name="child" class="form-input-select">
+                  <option value="1" selected="selected">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                </select>
+              </div>
+              <div class="booking-form-input">
+                DEPARTURE
+                <input
+                  type="text"
+                  value="11.30pm"
+                  class="form-input-select"
+                  disabled
+                />
+              </div>
+              <div class="booking-form-input">
+                RETURN
+                <input
+                  type="text"
+                  value="12.40am"
+                  class="form-input-select"
+                  disabled
+                />
+              </div>
+              <div class="booking-form-input">
+                CABIN/CLASS
+                <div class="booking-form-input-buttons">
+                  <div class="booking-form-input-button">
+                    <input
+                      type="radio"
+                      name="cabinclass"
+                      value="ECONOMY"
+                      checked="checked"
+                    />ECONOMY
+                  </div>
+                  <div class="booking-form-input-button">
+                    <input
+                      type="radio"
+                      name="cabinclass"
+                      value="BUSINESS"
+                    />BUSINESS
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="booking-form-buttons">
+              <input
+                type="button"
+                class="btn"
+                value="CHECK"
+                onclick="reservationCheck()"
+              />
+            </div>
+            <div class="booking-form-buttons">
+              <div class="finalcheck" id="total">TOTAL :</div>
+              <div class="finalcheck" id="amount">0</div>
+            </div>
+          </form>
+          <div class="form-message"></div>
+        </div>
+      </section>
+      <footer>
+        <div class="footer-tagline">
+          Travel With Us On Your Favourite Destination
+        </div>
+        <div class="footer-copyright">
+          © 2018 S & S Company Limited All Rights Reserved.
+        </div>
+      </footer>
+    </div>
+
+    <script src="../Javascript.js"></script>
+  </body>
+</html>
