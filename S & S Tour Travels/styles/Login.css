@@ -2,16 +2,19 @@
   width: 100%;
   padding: 10px;
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   font-size: 17px;
   font-weight: normal;
   color: var(--blueLight);
-  flex-direction: row;
 }
 
 .login-form {
-  width: 35%;
+  width: 100%;
   height: auto;
-  margin: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .login-slide {

@@ -23,9 +23,9 @@
       <div id="includedHeader"></div>
       <section>
         <div class="login">
-          <form class="login-form" name="login">
+          <div class="booking-form">
             <div class="section-header">LOGIN</div>
-            <div class="booking-form">
+            <form class="login-form" name="login" id="login">
               <div class="booking-form-input">
                 USER NAME
                 <div class="text-msg" id="username">Enter User Name</div>
@@ -34,8 +34,8 @@
                   name="username"
                   class="form-input-select"
                   id="u"
-                  onfocus="textfocus(this.name)"
-                  onblur="textblur(this.name,this.id)"
+                  onfocus="textFocus(this)"
+                  onblur="textValidation(this)"
                 />
               </div>
               <div class="booking-form-input">
@@ -46,28 +46,24 @@
                   name="password"
                   class="form-input-select"
                   id="p"
-                  onfocus="textfocus(this.name)"
-                  onblur="textblur(this.name,this.id)"
+                  onfocus="textFocus(this)"
+                  onblur="textValidation(this)"
                 />
               </div>
               <div class="booking-form-buttons">
-                <input type="button" value="SIGN IN" class="btn" />
-                <input
-                  type="button"
-                  value="SIGN UP"
-                  class="btn"
-                  onclick="signUp()"
-                />
+                <button type="submit" class="btn">SIGN UP</button>
               </div>
-            </div>
-          </form>
+            </form>
+            <a onclick="signUp()"> Sign Up </a>
+          </div>
           <div class="login-slide">
             <img src="../Images/Place1.gif" class="image login-img-slider" />
             <div class="login-img-slider-name">LONDON</div>
           </div>
         </div>
+
         <div class="main-registration">
-          <form class="login-form" name="signup">
+          <form class="login-form" name="signup" id="signup">
             <div class="section-header">REGISTRATION</div>
             <div class="booking-form">
               <div class="booking-form-input">
@@ -77,8 +73,8 @@
                   class="form-input-select"
                   name="title"
                   id="t"
-                  onfocus="textfocus(this.name)"
-                  onblur="textblur(this.name,this.id)"
+                  onfocus="textFocus(this)"
+                  onblur="textValidation(this)"
                 >
                   <option
                     selected="selected"
@@ -100,8 +96,8 @@
                   type="text"
                   name="firstname"
                   id="fn"
-                  onfocus="textfocus(this.name)"
-                  onblur="textblur(this.name,this.id)"
+                  onfocus="textFocus(this)"
+                  onblur="textValidation(this)"
                 />
               </div>
               <div class="booking-form-input">
@@ -112,8 +108,8 @@
                   type="text"
                   name="lastname"
                   id="ln"
-                  onfocus="textfocus(this.name)"
-                  onblur="textblur(this.name,this.id)"
+                  onfocus="textFocus(this)"
+                  onblur="textValidation(this)"
                 />
               </div>
               <div class="booking-form-input">
@@ -124,8 +120,8 @@
                   class="form-input-select"
                   name="city"
                   id="ct"
-                  onfocus="textfocus(this.name)"
-                  onblur="textblur(this.name,this.id)"
+                  onfocus="textFocus(this)"
+                  onblur="textValidation(this)"
                 />
               </div>
               <div class="booking-form-input">
@@ -136,8 +132,8 @@
                   type="text"
                   name="state"
                   id="s"
-                  onfocus="textfocus(this.name)"
-                  onblur="textblur(this.name,this.id)"
+                  onfocus="textFocus(this)"
+                  onblur="textValidation(this)"
                 />
               </div>
               <div class="booking-form-input">
@@ -148,8 +144,8 @@
                   type="text"
                   name="country"
                   id="c"
-                  onfocus="textfocus(this.name)"
-                  onblur="textblur(this.name,this.id)"
+                  onfocus="textFocus(this)"
+                  onblur="textValidation(this)"
                 />
               </div>
               <div class="booking-form-input">
@@ -160,8 +156,8 @@
                   type="text"
                   name="email"
                   id="e"
-                  onfocus="textfocus(this.name)"
-                  onblur="textblur(this.name,this.id)"
+                  onfocus="textFocus(this)"
+                  onblur="textValidation(this)"
                 />
               </div>
               <div class="booking-form-input">
@@ -172,8 +168,8 @@
                   type="text"
                   name="phone"
                   id="ph"
-                  onfocus="textfocus(this.name)"
-                  onblur="textblur(this.name,this.id)"
+                  onfocus="textFocus(this)"
+                  onblur="textValidation(this)"
                 />
               </div>
               <div class="booking-form-input">
@@ -183,21 +179,16 @@
                   class="form-input-select textarea"
                   name="address"
                   id="a"
-                  onfocus="textfocus(this.name)"
-                  onblur="textblur(this.name,this.id)"
+                  onfocus="textFocus(this)"
+                  onblur="textValidation(this)"
                 ></textarea>
               </div>
               <div class="booking-form-buttons">
-                <input type="button" class="btn" value="SUBMIT" />
-                <input
-                  type="button"
-                  class="btn"
-                  value="SIGN IN"
-                  onclick="signIn()"
-                />
+                <button type="submit" class="btn">SUBMIT</button>
               </div>
             </div>
           </form>
+          <a onclick="signIn()"> Sign In </a>
         </div>
       </section>
       <div id="includedFooter"></div>

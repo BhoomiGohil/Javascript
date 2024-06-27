@@ -41,9 +41,10 @@ function homeOnload() {
   imagechange(randomIndex);
 }
 
-function imagechange(id) {
-  document.querySelector(".slider-image").src = imageArray[id].image;
-  document.querySelector(".slider-title").innerHTML = imageArray[id].title;
+function imagechange(randomIndex) {
+  document.querySelector(".slider-image").src = imageArray[randomIndex].image;
+  document.querySelector(".slider-title").innerHTML =
+    imageArray[randomIndex].title;
 }
 
 function slider(text) {
@@ -111,7 +112,6 @@ function reservationCheck() {
   };
 
   function measure(lat1, lon1, lat2, lon2) {
-    // generally used geo measurement function
     var R = 6378.137; // Radius of earth in KM
     var dLat = (lat2 * Math.PI) / 180 - (lat1 * Math.PI) / 180;
     var dLon = (lon2 * Math.PI) / 180 - (lon1 * Math.PI) / 180;
@@ -167,40 +167,98 @@ function signIn() {
   document.querySelector(".main-registration").style.display = "none";
 }
 
-function textfocus(text) {
-  document.getElementById(text).style.display = "none";
+function textFocus(input) {
+  document.getElementById(input.name).style.display = "none";
 }
 
-function textblur(name, id) {
-  if (document.getElementById(id).value === "") {
-    textblock(name);
+function textMessage(input) {
+  document.getElementById(input.name).style.display = "block";
+}
+
+function textValidation(input) {
+  if (input.value === "") {
+    textMessage(input);
   } else {
-    text = document.getElementById(id).value;
-    if (id === "fn" || id === "ln" || id === "ct" || id === "s" || id === "c") {
+    text = input.value;
+    if (
+      input.name === "firstname" ||
+      input.name === "lastname" ||
+      input.name === "city" ||
+      input.name === "state" ||
+      input.name === "country"
+    ) {
       if (text.match(/^[A-Za-z]+$/)) {
       } else {
-        textblock(name);
-        document.getElementById(name).innerHTML = "Enter Alphabet Only...";
+        textMessage(input);
+        document.getElementById(input.name).innerHTML = "Enter alphabet only";
       }
-    } else if (id === "e") {
+    } else if (input.name === "email") {
       if (text.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
       } else {
-        textblock(name);
-        document.getElementById(name).innerHTML = "Enter Email Properly...";
+        textMessage(input);
+        document.getElementById(input.name).innerHTML = "Enter email format";
       }
-    } else if (id === "ph") {
+    } else if (input.name === "phone") {
       if (text.match(/^\d{10}$/)) {
       } else {
-        textblock(name);
-        document.getElementById(name).innerHTML = "Enter 10 Digit Only...";
+        textMessage(input);
+        document.getElementById(input.name).innerHTML = "Enter 10 digit only";
       }
     }
   }
 }
 
-function textblock(name) {
-  document.getElementById(name).style.display = "block";
-}
+let signUpForm = document.getElementById("signup");
+
+signUpForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  var inputs = e.target.getElementsByTagName("input");
+  var textareas = e.target.getElementsByTagName("textarea");
+
+  for (let index = 0; index < inputs.length; index++) {
+    const element = inputs[index];
+    textValidation(element);
+  }
+
+  for (let index = 0; index < textareas.length; index++) {
+    const element = textareas[index];
+    textValidation(element);
+  }
+});
+
+let signInForm = document.getElementById("login");
+
+signInForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  var inputs = e.target.getElementsByTagName("input");
+  var textareas = e.target.getElementsByTagName("textarea");
+
+  for (let index = 0; index < inputs.length; index++) {
+    const element = inputs[index];
+    textValidation(element);
+  }
+
+  for (let index = 0; index < textareas.length; index++) {
+    const element = textareas[index];
+    textValidation(element);
+  }
+});
+
+// function registration(form) {
+// localStorage.setItem("Registration", [
+//   {
+//     title: "",
+//     firstName: "",
+//     lastName: "",
+//     city: "",
+//     state: "",
+//     country: "",
+//     email: "",
+//     phone: "",
+//     address: "",
+//   },
+// ]);
+// }
 
 //////////////////////////// Login LocalStorage Code ////////////////////////////////
 

@@ -51,7 +51,7 @@ input {
 }
 
 .booking-form {
-  width: 90%;
+  width: 35%;
   margin: auto;
   display: flex;
   flex-direction: column;
