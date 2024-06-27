@@ -29,6 +29,8 @@ const imageArray = [
   },
 ];
 
+// Home page
+
 //////////////////////////// Home Slider Code ////////////////////////////////
 
 const sliderImageLength = imageArray.length - 1;
@@ -62,7 +64,7 @@ function slider(text) {
   }
 }
 
-// Reservation
+// Reservation page
 
 //////////////////////////// Reservation Title Change Code ////////////////////////////////
 
@@ -74,53 +76,84 @@ function reservationName(text) {
 //////////////////////////// Reservation Calculation Code ////////////////////////////////
 
 function reservationCheck() {
-  var leaving = document.form.leaving.value;
-  var going = document.form.going.value;
+  var from = document.form.from.value;
+  var to = document.form.to.value;
 
-  if (going === leaving) {
-    document.querySelector(".form-message").innerHTML =
-      "Leaving from and Going to value is same.";
-  } else if (going !== leaving) {
-    document.querySelector(".form-message").innerHTML = "";
-
-    if (going === "MUMBAI") {
-      economic = 500;
-      business = 1000;
-    } else if (going === "DELHI") {
-      economic = 1000;
-      business = 1500;
-    } else if (going === "BANGLORE") {
-      economic = 1500;
-      business = 2000;
-    }
-    checkTotal(economic, business);
-  }
-}
-
-function checkTotal(economic, business) {
-  var journeyway = document.form.journeyway.value;
-
-  if (journeyway === "ONEWAY") {
-    journey = 1;
-  } else {
-    journey = 2;
-  }
+  var ways = document.form.ways.value;
 
   var adult = document.form.adult.value;
   var child = document.form.child.value;
 
-  var cabinclass = document.form.cabinclass.value;
+  var cabinClass = document.form.cabinClass.value;
+  var economicPrice = 0;
+  var reservationClassPrice;
 
-  if (cabinclass === "ECONOMY") {
-    document.querySelector("#amount").innerHTML =
-      (Number(adult) + Number(child)) * economic * journey;
-  } else {
-    document.querySelector("#amount").innerHTML =
-      (Number(adult) + Number(child)) * business * journey;
+  var kmPrice = 5;
+
+  var journey = 1;
+  if (ways === "two") {
+    journey = 1.5;
   }
+
+  const places = {
+    delhi: {
+      laltitude: 28.7041,
+      longitude: 77.1025,
+    },
+    mumbai: {
+      laltitude: 19.076,
+      longitude: 72.8777,
+    },
+    banglore: {
+      laltitude: 12.9716,
+      longitude: 77.5946,
+    },
+  };
+
+  function measure(lat1, lon1, lat2, lon2) {
+    // generally used geo measurement function
+    var R = 6378.137; // Radius of earth in KM
+    var dLat = (lat2 * Math.PI) / 180 - (lat1 * Math.PI) / 180;
+    var dLon = (lon2 * Math.PI) / 180 - (lon1 * Math.PI) / 180;
+    var a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos((lat1 * Math.PI) / 180) *
+        Math.cos((lat2 * Math.PI) / 180) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var d = R * c;
+    return d; // km
+  }
+
+  if (from === to) {
+    document.querySelector(".form-message").innerHTML =
+      "Please select different destinations.";
+  } else {
+    document.querySelector(".form-message").innerHTML = "";
+    economicPrice =
+      measure(
+        places[from].laltitude,
+        places[from].longitude,
+        places[to].laltitude,
+        places[to].longitude
+      ) * kmPrice;
+  }
+
+  reservationClassPrice = economicPrice;
+  if (cabinClass === "business") {
+    reservationClassPrice = economicPrice * 2.5;
+  }
+
+  checkTotal(adult, child, journey, reservationClassPrice.toFixed(0));
 }
 
-// Login
+function checkTotal(adult, child, journey, reservationClassPrice) {
+  document.querySelector("#amount").innerHTML =
+    (Number(adult) + Number(child)) * reservationClassPrice * journey;
+}
+
+// Login page
 
 //////////////////////////// Login Signup and Signin Code ////////////////////////////////
 
@@ -176,8 +209,6 @@ const getRegistrations = localStorage.getItem("Registration");
 if (getRegistrations) {
   localStorage.setItem("Registration", null);
 }
-
-console.log(getRegistrations);
 
 //////////////////////////// Login Slider Code ////////////////////////////////
 

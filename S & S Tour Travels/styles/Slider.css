@@ -1,8 +1,9 @@
 /* Home */
 
 .slider {
-  width: 100%;
+  width: 95%;
   height: 100%;
+  margin: auto;
   display: flex;
   flex-direction: row;
   align-items: center;
