@@ -24,19 +24,19 @@
       <div class="reservation-by-selections">
         <div
           class="reservation-by-selection"
-          onclick="reservationName(this.innerHTML)"
+          onclick="reservationTitle(this.innerHTML)"
         >
           FLIGHT
         </div>
         <div
           class="reservation-by-selection"
-          onclick="reservationName(this.innerHTML)"
+          onclick="reservationTitle(this.innerHTML)"
         >
           RAILWAY
         </div>
         <div
           class="reservation-by-selection"
-          onclick="reservationName(this.innerHTML)"
+          onclick="reservationTitle(this.innerHTML)"
         >
           BUS
         </div>
@@ -46,72 +46,72 @@
           <div class="section-header" id="reservation-heading">
             FLIGHT RESERVATION
           </div>
-          <form class="booking-form" name="form">
-            <div class="booking-form-input-buttons">
-              <div class="booking-form-input-button">
+          <form class="reservation-form" name="form">
+            <div class="form-input-buttons">
+              <div class="form-input-button">
                 <input type="radio" name="ways" value="one" checked />ONE WAY
               </div>
-              <div class="booking-form-input-button">
+              <div class="form-input-button">
                 <input type="radio" name="ways" value="two" />RETURN
               </div>
             </div>
 
-            <div class="booking-form-inputs">
-              <div class="booking-form-input">
+            <div class="form-inputs">
+              <div class="form-input-block">
                 LEAVING FROM
-                <select name="from" class="form-input-select">
+                <select name="from" class="form-input-field">
                   <option value="mumbai" selected="selected">MUMBAI</option>
                   <option value="delhi">DELHI</option>
                   <option value="banglore">BANGLORE</option>
                 </select>
               </div>
-              <div class="booking-form-input">
+              <div class="form-input-block">
                 GOING TO
-                <select name="to" class="form-input-select">
+                <select name="to" class="form-input-field">
                   <option value="mumbai" selected="selected">MUMBAI</option>
                   <option value="delhi">DELHI</option>
                   <option value="banglore">BANGLORE</option>
                 </select>
               </div>
 
-              <div class="booking-form-input">
+              <div class="form-input-block">
                 ADULTS
-                <select name="adult" class="form-input-select">
+                <select name="adult" class="form-input-field">
                   <option value="1" selected="selected">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
                 </select>
               </div>
-              <div class="booking-form-input">
+              <div class="form-input-block">
                 CHILDREN
-                <select name="child" class="form-input-select">
+                <select name="child" class="form-input-field">
                   <option value="1" selected="selected">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
                 </select>
               </div>
-              <div class="booking-form-input">
+              <div class="form-input-block">
                 DEPARTURE
                 <input
                   type="text"
                   value="11.30pm"
-                  class="form-input-select"
+                  class="form-input-field"
                   disabled
                 />
               </div>
-              <div class="booking-form-input">
+              <div class="form-input-block">
                 RETURN
                 <input
                   type="text"
                   value="12.40am"
-                  class="form-input-select"
+                  class="form-input-field"
                   disabled
                 />
               </div>
-              <div class="booking-form-input">
+              <div class="form-input-block">
                 CABIN/CLASS
-                <div class="booking-form-input-buttons">
-                  <div class="booking-form-input-button">
+                <div class="form-input-buttons">
+                  <div class="form-input-button">
                     <input
                       type="radio"
                       name="cabinClass"
@@ -119,7 +119,7 @@
                       checked="checked"
                     />ECONOMY
                   </div>
-                  <div class="booking-form-input-button">
+                  <div class="form-input-button">
                     <input
                       type="radio"
                       name="cabinClass"
@@ -129,20 +129,21 @@
                 </div>
               </div>
             </div>
-            <div class="booking-form-buttons">
+
+            <div class="form-buttons">
               <input
                 type="button"
-                class="btn"
+                class="form-button"
                 value="CHECK"
-                onclick="reservationCheck()"
+                onclick="reservationCalculate()"
               />
             </div>
-            <div class="booking-form-buttons">
-              <div class="finalcheck" id="total">TOTAL :</div>
-              <div class="finalcheck" id="amount">0</div>
+            <div class="form-buttons">
+              <div class="reservation-total" id="total">TOTAL :</div>
+              <div class="reservation-total" id="amount">0</div>
             </div>
           </form>
-          <div class="form-message"></div>
+          <div class="form-error-message"></div>
         </div>
       </section>
       <div id="includedFooter"></div>

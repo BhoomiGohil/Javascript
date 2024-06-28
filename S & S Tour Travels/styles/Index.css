@@ -50,15 +50,9 @@ input {
   text-align: center;
 }
 
-.booking-form {
-  width: 35%;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
+/* Forms */
 
-.booking-form-input-buttons {
+.form-input-buttons {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -67,37 +61,33 @@ input {
   grid-column: 1 / -1;
 }
 
-.booking-form-input-button {
+.form-input-button {
   margin: 5px 0px 5px 0px;
   display: flex;
   flex-direction: row;
-  gap: 10px;
+  gap: 20px;
   text-align: left;
 }
 
-.booking-form-inputs {
+.form-inputs {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   justify-content: flex-start;
   align-items: flex-start;
-  gap: 10px;
+  gap: 20px;
 }
 
-.booking-form-input {
+.form-input-block {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  gap: 10px;
+  gap: 5px;
   text-align: left;
 }
 
-.booking-form-buttons {
-  grid-column: 1 / -1;
-}
-
-.form-input-select {
+.form-input-field {
   width: 100%;
   padding: 10px;
   font-size: 15px;
@@ -106,7 +96,12 @@ input {
   color: var(--blueDark);
 }
 
-.btn {
+.form-buttons {
+  display: flex;
+  flex-direction: row;
+}
+
+.form-button {
   height: 22px;
   width: 110px;
   background-color: var(--blueLight);
@@ -116,31 +111,17 @@ input {
   font-size: 19px;
   font-weight: normal;
   border: none;
+  text-transform: uppercase;
 }
 
-.btn:hover {
+.form-button:hover {
   background-color: var(--white);
   color: var(--blueLight);
 }
 
-.re-button {
-  float: left;
-  min-height: 20px;
-  width: 100%;
-  padding-top: 3px;
-}
-
-.finalcheck {
-  float: left;
-  min-height: 20px;
-  width: 7%;
-  text-align: left;
-}
-
-.form-message {
+.form-error-message {
   width: 100%;
   float: left;
-  height: 20px;
   color: var(--red);
-  font-size: 10px;
+  font-size: 12px;
 }

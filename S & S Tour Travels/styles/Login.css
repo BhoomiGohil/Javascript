@@ -1,15 +1,23 @@
 .login {
   width: 100%;
   padding: 10px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 20px;
   font-size: 17px;
   font-weight: normal;
   color: var(--blueLight);
 }
 
 .login-form {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.login-forms {
   width: 100%;
   height: auto;
   display: flex;
@@ -18,7 +26,7 @@
 }
 
 .login-slide {
-  width: 60%;
+  width: 100%;
   height: 460px;
   margin: 5px;
   padding: 10px;
@@ -43,23 +51,17 @@
   text-transform: uppercase;
 }
 
-.main-registration {
-  width: 100%;
+.registration {
+  width: 35%;
   padding: 10px;
+  margin: auto;
   display: none;
   flex-direction: column;
   align-items: center;
+  gap: 20px;
   font-size: 17px;
   font-weight: normal;
   color: var(--blueLight);
-}
-
-.text-msg {
-  width: 100%;
-  height: 20px;
-  font-size: 13px;
-  color: var(--blueDark);
-  text-align: left;
 }
 
 #username,

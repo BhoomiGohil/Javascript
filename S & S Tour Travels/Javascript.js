@@ -1,82 +1,81 @@
-// Slider
-
 //////////////////////////// Slider Images ////////////////////////////////
+var imageArray, sliderImageLength, randomIndex;
 
-const imageArray = [
-  {
-    image: "../Images/Place1.gif",
-    title: "London",
-  },
-  {
-    image: "../Images/Place2.gif",
-    title: "Venice",
-  },
-  {
-    image: "../Images/Place3.gif",
-    title: "New Zealand",
-  },
-  {
-    image: "../Images/Place4.gif",
-    title: "Goa",
-  },
-  {
-    image: "../Images/Place5.gif",
-    title: "Jammu and Kashmir",
-  },
-  {
-    image: "../Images/Place6.gif",
-    title: "Australia",
-  },
-];
+function grabArrayObjectData() {
+  imageArray = [
+    {
+      image: "../Images/Place1.gif",
+      title: "London",
+    },
+    {
+      image: "../Images/Place2.gif",
+      title: "Venice",
+    },
+    {
+      image: "../Images/Place3.gif",
+      title: "New Zealand",
+    },
+    {
+      image: "../Images/Place4.gif",
+      title: "Goa",
+    },
+    {
+      image: "../Images/Place5.gif",
+      title: "Jammu and Kashmir",
+    },
+    {
+      image: "../Images/Place6.gif",
+      title: "Australia",
+    },
+  ];
+
+  sliderImageLength = imageArray.length - 1;
+  randomIndex = Math.floor(Math.random() * sliderImageLength);
+}
 
 // Home page
 
 //////////////////////////// Home Slider Code ////////////////////////////////
 
-const sliderImageLength = imageArray.length - 1;
-let randomIndex;
-
-function homeOnload() {
-  randomIndex = Math.floor(Math.random() * sliderImageLength);
-  imagechange(randomIndex);
-}
-
-function imagechange(randomIndex) {
+function homeImageChange(randomIndex) {
   document.querySelector(".slider-image").src = imageArray[randomIndex].image;
   document.querySelector(".slider-title").innerHTML =
     imageArray[randomIndex].title;
 }
 
-function slider(text) {
+function homeSliderButton(text) {
   if (text === "left") {
     randomIndex = randomIndex - 1;
     if (randomIndex < 0) {
       randomIndex = sliderImageLength;
     }
-    imagechange(randomIndex);
-  }
-
-  if (text === "right") {
+    homeImageChange(randomIndex);
+  } else if (text === "right") {
     randomIndex = randomIndex + 1;
     if (randomIndex > sliderImageLength) {
       randomIndex = 0;
     }
-    imagechange(randomIndex);
+    homeImageChange(randomIndex);
   }
+}
+
+function homeOnload() {
+  grabArrayObjectData();
+  homeImageChange(randomIndex);
 }
 
 // Reservation page
 
 //////////////////////////// Reservation Title Change Code ////////////////////////////////
 
-function reservationName(text) {
+function reservationTitle(text) {
   document.querySelector("#reservation-heading").innerHTML =
     text + " RESERVATION";
 }
 
 //////////////////////////// Reservation Calculation Code ////////////////////////////////
 
-function reservationCheck() {
+function reservationCalculate() {
   var from = document.form.from.value;
   var to = document.form.to.value;
 
@@ -111,7 +110,7 @@ function reservationCheck() {
     },
   };
 
-  function measure(lat1, lon1, lat2, lon2) {
+  function measureKm(lat1, lon1, lat2, lon2) {
     var R = 6378.137; // Radius of earth in KM
     var dLat = (lat2 * Math.PI) / 180 - (lat1 * Math.PI) / 180;
     var dLon = (lon2 * Math.PI) / 180 - (lon1 * Math.PI) / 180;
@@ -127,12 +126,12 @@ function reservationCheck() {
   }
 
   if (from === to) {
-    document.querySelector(".form-message").innerHTML =
+    document.querySelector(".form-error-message").innerHTML =
       "Please select different destinations.";
   } else {
-    document.querySelector(".form-message").innerHTML = "";
+    document.querySelector(".form-error-message").innerHTML = "";
     economicPrice =
-      measure(
+      measureKm(
         places[from].laltitude,
         places[from].longitude,
         places[to].laltitude,
@@ -145,10 +144,10 @@ function reservationCheck() {
     reservationClassPrice = economicPrice * 2.5;
   }
 
-  checkTotal(adult, child, journey, reservationClassPrice.toFixed(0));
+  checkTotalAmount(adult, child, journey, reservationClassPrice.toFixed(0));
 }
 
-function checkTotal(adult, child, journey, reservationClassPrice) {
+function checkTotalAmount(adult, child, journey, reservationClassPrice) {
   document.querySelector("#amount").innerHTML =
     (Number(adult) + Number(child)) * reservationClassPrice * journey;
 }
@@ -157,29 +156,30 @@ function checkTotal(adult, child, journey, reservationClassPrice) {
 
 //////////////////////////// Login Signup and Signin Code ////////////////////////////////
 
-function signUp() {
+function signUpButton() {
   document.querySelector(".login").style.display = "none";
-  document.querySelector(".main-registration").style.display = "flex";
+  document.querySelector(".registration").style.display = "flex";
 }
 
-function signIn() {
-  document.querySelector(".login").style.display = "flex";
-  document.querySelector(".main-registration").style.display = "none";
+function signInButton() {
+  document.querySelector(".login").style.display = "grid";
+  document.querySelector(".registration").style.display = "none";
 }
 
-function textFocus(input) {
+//////////////////////////// Login Signup and Signin validation Code ////////////////////////////////
+
+function inputFocus(input) {
   document.getElementById(input.name).style.display = "none";
 }
 
-function textMessage(input) {
+function errorMessage(input) {
   document.getElementById(input.name).style.display = "block";
 }
 
-function textValidation(input) {
-  if (input.value === "") {
-    textMessage(input);
+function inputValidation(input) {
+  if (input.value === "" || input.value === "PLEASE SELECT") {
+    errorMessage(input);
   } else {
-    text = input.value;
     if (
       input.name === "firstname" ||
       input.name === "lastname" ||
@@ -187,62 +187,78 @@ function textValidation(input) {
       input.name === "state" ||
       input.name === "country"
     ) {
-      if (text.match(/^[A-Za-z]+$/)) {
-      } else {
-        textMessage(input);
+      if (!input.value.match(/^[A-Za-z]+$/)) {
+        errorMessage(input);
         document.getElementById(input.name).innerHTML = "Enter alphabet only";
       }
     } else if (input.name === "email") {
-      if (text.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
-      } else {
-        textMessage(input);
+      if (!input.value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
+        errorMessage(input);
         document.getElementById(input.name).innerHTML = "Enter email format";
       }
     } else if (input.name === "phone") {
-      if (text.match(/^\d{10}$/)) {
-      } else {
-        textMessage(input);
+      if (!input.value.match(/^\d{10}$/)) {
+        errorMessage(input);
         document.getElementById(input.name).innerHTML = "Enter 10 digit only";
       }
     }
   }
 }
 
-let signUpForm = document.getElementById("signup");
+//////////////////////////// Login Slider Code ////////////////////////////////
 
-signUpForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  var inputs = e.target.getElementsByTagName("input");
-  var textareas = e.target.getElementsByTagName("textarea");
-
-  for (let index = 0; index < inputs.length; index++) {
-    const element = inputs[index];
-    textValidation(element);
+function loginLoadImage() {
+  if (randomIndex === sliderImageLength) {
+    randomIndex = 0;
   }
+  document.querySelector(".login-img-slider").src =
+    imageArray[randomIndex].image;
+  document.querySelector(".login-img-slider-name").innerHTML =
+    imageArray[randomIndex].title;
+  randomIndex++;
+}
 
-  for (let index = 0; index < textareas.length; index++) {
-    const element = textareas[index];
-    textValidation(element);
-  }
-});
+function SignInSubmission() {
+  let signInFormSubmission = document.getElementById("login");
 
-let signInForm = document.getElementById("login");
+  signInFormSubmission.addEventListener("submit", (e) => {
+    e.preventDefault();
+    var inputs = e.target.getElementsByTagName("input");
 
-signInForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  var inputs = e.target.getElementsByTagName("input");
-  var textareas = e.target.getElementsByTagName("textarea");
+    for (let index = 0; index < inputs.length; index++)
+      inputValidation(inputs[index]);
+  });
+}
 
-  for (let index = 0; index < inputs.length; index++) {
-    const element = inputs[index];
-    textValidation(element);
-  }
+function SignUpSubmission() {
+  let signUpFormSubmission = document.getElementById("signup");
 
-  for (let index = 0; index < textareas.length; index++) {
-    const element = textareas[index];
-    textValidation(element);
-  }
-});
+  signUpFormSubmission.addEventListener("submit", (e) => {
+    e.preventDefault();
+    var selects = e.target.getElementsByTagName("select");
+    var inputs = e.target.getElementsByTagName("input");
+    var textareas = e.target.getElementsByTagName("textarea");
+
+    for (let index = 0; index < selects.length; index++)
+      inputValidation(selects[index]);
+
+    for (let index = 0; index < inputs.length; index++)
+      inputValidation(inputs[index]);
+
+    for (let index = 0; index < textareas.length; index++)
+      inputValidation(textareas[index]);
+  });
+}
+
+function loginOnload() {
+  grabArrayObjectData();
+
+  loginLoadImage();
+  setInterval(loginLoadImage, 3000);
+
+  SignInSubmission();
+  SignUpSubmission();
+}
 
 // function registration(form) {
 // localStorage.setItem("Registration", [
@@ -266,25 +282,4 @@ const getRegistrations = localStorage.getItem("Registration");
 
 if (getRegistrations) {
   localStorage.setItem("Registration", null);
-}
-
-//////////////////////////// Login Slider Code ////////////////////////////////
-
-function loginOnload() {
-  var loginSliderIndex = 0;
-
-  loadImage();
-
-  setInterval(loadImage, 3000);
-
-  function loadImage() {
-    if (loginSliderIndex === sliderImageLength) {
-      loginSliderIndex = 0;
-    }
-    document.querySelector(".login-img-slider").src =
-      imageArray[loginSliderIndex].image;
-    document.querySelector(".login-img-slider-name").innerHTML =
-      imageArray[loginSliderIndex].title;
-    loginSliderIndex++;
-  }
 }

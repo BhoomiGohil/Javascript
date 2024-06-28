@@ -23,38 +23,42 @@
       <div id="includedHeader"></div>
       <section>
         <div class="login">
-          <div class="booking-form">
+          <div class="login-form">
             <div class="section-header">LOGIN</div>
-            <form class="login-form" name="login" id="login">
-              <div class="booking-form-input">
+            <form class="login-forms" name="login" id="login">
+              <div class="form-input-block">
                 USER NAME
-                <div class="text-msg" id="username">Enter User Name</div>
+                <div class="form-error-message" id="username">
+                  Enter User Name
+                </div>
                 <input
                   type="text"
                   name="username"
-                  class="form-input-select"
+                  class="form-input-field"
                   id="u"
-                  onfocus="textFocus(this)"
-                  onblur="textValidation(this)"
+                  onfocus="inputFocus(this)"
+                  onblur="inputValidation(this)"
                 />
               </div>
-              <div class="booking-form-input">
+              <div class="form-input-block">
                 PASSWORD
-                <div class="text-msg" id="password">Enter Password</div>
+                <div class="form-error-message" id="password">
+                  Enter Password
+                </div>
                 <input
                   type="password"
                   name="password"
-                  class="form-input-select"
+                  class="form-input-field"
                   id="p"
-                  onfocus="textFocus(this)"
-                  onblur="textValidation(this)"
+                  onfocus="inputFocus(this)"
+                  onblur="inputValidation(this)"
                 />
               </div>
-              <div class="booking-form-buttons">
-                <button type="submit" class="btn">SIGN UP</button>
+              <div class="form-buttons">
+                <button type="submit" class="form-button">SIGN IN</button>
               </div>
             </form>
-            <a onclick="signUp()"> Sign Up </a>
+            <a onclick="signUpButton()">Sign Up</a>
           </div>
           <div class="login-slide">
             <img src="../Images/Place1.gif" class="image login-img-slider" />
@@ -62,25 +66,21 @@
           </div>
         </div>
 
-        <div class="main-registration">
-          <form class="login-form" name="signup" id="signup">
-            <div class="section-header">REGISTRATION</div>
-            <div class="booking-form">
-              <div class="booking-form-input">
+        <div class="registration">
+          <div class="login-form">
+            <div class="section-header">SIGNUP</div>
+            <form class="login-forms" name="signup" id="signup">
+              <div class="form-input-block">
                 TITLE
-                <div class="text-msg" id="title">Select Title</div>
+                <div class="form-error-message" id="title">Select Title</div>
                 <select
-                  class="form-input-select"
+                  class="form-input-field"
                   name="title"
                   id="t"
-                  onfocus="textFocus(this)"
-                  onblur="textValidation(this)"
+                  onfocus="inputFocus(this)"
+                  onblur="inputValidation(this)"
                 >
-                  <option
-                    selected="selected"
-                    value="PLEASE SELECT"
-                    disabled="disabled"
-                  >
+                  <option selected="selected" value="PLEASE SELECT">
                     PLEASE SELECT
                   </option>
                   <option value="Mr.">Mr.</option>
@@ -88,107 +88,113 @@
                   <option value="Ms.">Ms.</option>
                 </select>
               </div>
-              <div class="booking-form-input">
+              <div class="form-input-block">
                 FIRST NAME
-                <div class="text-msg" id="firstname">Enter First Name</div>
+                <div class="form-error-message" id="firstname">
+                  Enter First Name
+                </div>
                 <input
-                  class="form-input-select"
+                  class="form-input-field"
                   type="text"
                   name="firstname"
                   id="fn"
-                  onfocus="textFocus(this)"
-                  onblur="textValidation(this)"
+                  onfocus="inputFocus(this)"
+                  onblur="inputValidation(this)"
                 />
               </div>
-              <div class="booking-form-input">
+              <div class="form-input-block">
                 LAST NAME
-                <div class="text-msg" id="lastname">Enter Last Name</div>
+                <div class="form-error-message" id="lastname">
+                  Enter Last Name
+                </div>
                 <input
-                  class="form-input-select"
+                  class="form-input-field"
                   type="text"
                   name="lastname"
                   id="ln"
-                  onfocus="textFocus(this)"
-                  onblur="textValidation(this)"
+                  onfocus="inputFocus(this)"
+                  onblur="inputValidation(this)"
                 />
               </div>
-              <div class="booking-form-input">
+              <div class="form-input-block">
                 CITY
-                <div class="text-msg" id="city">Enter City</div>
+                <div class="form-error-message" id="city">Enter City</div>
                 <input
                   type="text"
-                  class="form-input-select"
+                  class="form-input-field"
                   name="city"
                   id="ct"
-                  onfocus="textFocus(this)"
-                  onblur="textValidation(this)"
+                  onfocus="inputFocus(this)"
+                  onblur="inputValidation(this)"
                 />
               </div>
-              <div class="booking-form-input">
+              <div class="form-input-block">
                 STATE
-                <div class="text-msg" id="state">Enter State</div>
+                <div class="form-error-message" id="state">Enter State</div>
                 <input
-                  class="form-input-select"
+                  class="form-input-field"
                   type="text"
                   name="state"
                   id="s"
-                  onfocus="textFocus(this)"
-                  onblur="textValidation(this)"
+                  onfocus="inputFocus(this)"
+                  onblur="inputValidation(this)"
                 />
               </div>
-              <div class="booking-form-input">
+              <div class="form-input-block">
                 COUNTRY
-                <div class="text-msg" id="country">Enter Country</div>
+                <div class="form-error-message" id="country">Enter Country</div>
                 <input
-                  class="form-input-select"
+                  class="form-input-field"
                   type="text"
                   name="country"
                   id="c"
-                  onfocus="textFocus(this)"
-                  onblur="textValidation(this)"
+                  onfocus="inputFocus(this)"
+                  onblur="inputValidation(this)"
                 />
               </div>
-              <div class="booking-form-input">
+              <div class="form-input-block">
                 E-MAIL
-                <div class="text-msg" id="email">Enter Email</div>
+                <div class="form-error-message" id="email">Enter Email</div>
                 <input
-                  class="form-input-select"
+                  class="form-input-field"
                   type="text"
                   name="email"
                   id="e"
-                  onfocus="textFocus(this)"
-                  onblur="textValidation(this)"
+                  onfocus="inputFocus(this)"
+                  onblur="inputValidation(this)"
                 />
               </div>
-              <div class="booking-form-input">
+              <div class="form-input-block">
                 PHONE NO
-                <div class="text-msg" id="phone">Enter Phone Number</div>
+                <div class="form-error-message" id="phone">
+                  Enter Phone Number
+                </div>
                 <input
-                  class="form-input-select"
+                  class="form-input-field"
                   type="text"
                   name="phone"
                   id="ph"
-                  onfocus="textFocus(this)"
-                  onblur="textValidation(this)"
+                  onfocus="inputFocus(this)"
+                  onblur="inputValidation(this)"
                 />
               </div>
-              <div class="booking-form-input">
+              <div class="form-input-block">
                 ADDRESS
-                <div class="text-msg" id="address">Enter Address</div>
+                <div class="form-error-message" id="address">Enter Address</div>
                 <textarea
-                  class="form-input-select textarea"
+                  class="form-input-field textarea"
                   name="address"
                   id="a"
-                  onfocus="textFocus(this)"
-                  onblur="textValidation(this)"
+                  onfocus="inputFocus(this)"
+                  onblur="inputValidation(this)"
                 ></textarea>
               </div>
-              <div class="booking-form-buttons">
-                <button type="submit" class="btn">SUBMIT</button>
+              <div class="form-buttons">
+                <button type="submit" class="form-button">SIGN Up</button>
               </div>
-            </div>
-          </form>
-          <a onclick="signIn()"> Sign In </a>
+            </form>
+            <a onclick="signInButton()"> Sign In </a>
+          </div>
         </div>
       </section>
       <div id="includedFooter"></div>
