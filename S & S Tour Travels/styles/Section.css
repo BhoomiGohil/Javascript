@@ -2,11 +2,11 @@
 
 section {
   width: 100%;
-  min-height: 70vh;
+  min-height: 65vh;
   padding: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   background-color: var(--white);
   border-radius: 15px;
 }

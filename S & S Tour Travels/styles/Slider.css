@@ -10,30 +10,19 @@
   gap: 20px;
 }
 
-.slider-left-button,
-.slider-right-button {
-  width: 40px;
-  height: 40px;
+.slider-button {
+  width: 30px;
+  height: 30px;
+  color: var(--blueDark);
   border-radius: 100%;
-  background-repeat: no-repeat;
-  background-size: 100%;
-  background-position: center;
 }
 
-.slider-left-button {
-  background-image: url(../Images/ArrowLL.jpg);
+.slider-button:hover {
+  color: var(--white);
 }
 
-.slider-right-button {
-  background-image: url(../Images/ArrowRL.jpg);
-}
-
-.slider-left-button:hover {
-  background-image: url(../Images/ArrowLD.jpg);
-}
-
-.slider-right-button:hover {
-  background-image: url(../Images/ArrowRD.jpg);
+.slider-icon {
+  height: 100%;
 }
 
 .slider-show {
