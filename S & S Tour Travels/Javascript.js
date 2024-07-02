@@ -1,5 +1,10 @@
 //////////////////////////// Slider Images ////////////////////////////////
-var imageArray, sliderImageLength, randomIndex;
+var imageArray,
+  sliderImageLength,
+  randomIndex,
+  validation = false,
+  registration = [],
+  registerObject = {};
 
 function grabArrayObjectData() {
   imageArray = [
@@ -180,26 +185,63 @@ function inputValidation(input) {
   if (input.value === "" || input.value === "PLEASE SELECT") {
     errorMessage(input);
   } else {
-    if (
-      input.name === "firstname" ||
-      input.name === "lastname" ||
-      input.name === "city" ||
-      input.name === "state" ||
-      input.name === "country"
-    ) {
-      if (!input.value.match(/^[A-Za-z]+$/)) {
-        errorMessage(input);
-        document.getElementById(input.name).innerHTML = "Enter alphabet only";
-      }
-    } else if (input.name === "email") {
+    if (input.name === "email") {
       if (!input.value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
         errorMessage(input);
         document.getElementById(input.name).innerHTML = "Enter email format";
+      } else {
+        var value = input.value;
+        // registerObject = { ...registerObject, email: value };
+        Object.assign(registerObject, { email: value });
       }
     } else if (input.name === "phone") {
       if (!input.value.match(/^\d{10}$/)) {
         errorMessage(input);
         document.getElementById(input.name).innerHTML = "Enter 10 digit only";
+      } else {
+        var value = input.value;
+        // registerObject = { ...registerObject, phone: value };
+        Object.assign(registerObject, { phone: value });
+      }
+    } else if (input.name === "title") {
+      if (input.value === "PLEASE SELECT") {
+        errorMessage(input);
+        document.getElementById(input.name).innerHTML = "Please select title";
+      } else {
+        var value = input.value;
+        // registerObject = { ...registerObject, firstname: value };
+        Object.assign(registerObject, { title: value });
+      }
+    } else if (input.name === "address") {
+      var value = input.value;
+      // registerObject = { ...registerObject, country: value };
+      Object.assign(registerObject, { address: value });
+    } else {
+      if (!input.value.match(/^[A-Za-z]+$/)) {
+        errorMessage(input);
+        document.getElementById(input.name).innerHTML = "Enter alphabet only";
+      } else {
+        if (input.name === "firstname") {
+          var value = input.value;
+          // registerObject = { ...registerObject, firstname: value };
+          Object.assign(registerObject, { firstname: value });
+        } else if (input.name === "lastname") {
+          var value = input.value;
+          // registerObject = { ...registerObject, lastname: value };
+          Object.assign(registerObject, { lastname: value });
+        } else if (input.name === "city") {
+          var value = input.value;
+          // registerObject = { ...registerObject, city: value };
+          Object.assign(registerObject, { city: value });
+        } else if (input.name === "state") {
+          var value = input.value;
+          // registerObject = { ...registerObject, state: value };
+          Object.assign(registerObject, { state: value });
+        } else if (input.name === "country") {
+          var value = input.value;
+          // registerObject = { ...registerObject, country: value };
+          Object.assign(registerObject, { country: value });
+        }
       }
     }
   }
@@ -235,18 +277,19 @@ function SignUpSubmission() {
 
   signUpFormSubmission.addEventListener("submit", (e) => {
     e.preventDefault();
-    var selects = e.target.getElementsByTagName("select");
-    var inputs = e.target.getElementsByTagName("input");
-    var textareas = e.target.getElementsByTagName("textarea");
 
-    for (let index = 0; index < selects.length; index++)
-      inputValidation(selects[index]);
+    var getRegistrations = localStorage.getItem("Registration") || "[]";
+    getRegistrations = JSON.parse(getRegistrations);
 
-    for (let index = 0; index < inputs.length; index++)
-      inputValidation(inputs[index]);
+    var inputs = e.target.querySelectorAll("select, input ,textarea");
 
-    for (let index = 0; index < textareas.length; index++)
-      inputValidation(textareas[index]);
+    for (i = 0; i < inputs.length; i++) {
+      if (inputs[i] !== "") {
+        getRegistrations.push(registerObject);
+        localStorage.setItem("Registration", JSON.stringify(getRegistrations));
+        inputs[i].value = "";
+      }
+    }
   });
 }
 
@@ -258,28 +301,4 @@ function loginOnload() {
 
   SignInSubmission();
   SignUpSubmission();
-}
-
-// function registration(form) {
-// localStorage.setItem("Registration", [
-//   {
-//     title: "",
-//     firstName: "",
-//     lastName: "",
-//     city: "",
-//     state: "",
-//     country: "",
-//     email: "",
-//     phone: "",
-//     address: "",
-//   },
-// ]);
-// }
-
-//////////////////////////// Login LocalStorage Code ////////////////////////////////
-
-const getRegistrations = localStorage.getItem("Registration");
-
-if (getRegistrations) {
-  localStorage.setItem("Registration", null);
 }
