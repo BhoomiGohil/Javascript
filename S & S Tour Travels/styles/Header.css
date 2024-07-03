@@ -40,6 +40,14 @@ header {
   text-transform: uppercase;
 }
 
+#headerLogin {
+  display: flex;
+}
+
+#headerLogout {
+  display: none;
+}
+
 .navigation a:hover {
   color: var(--blueMedium);
   border-bottom: 3px solid var(--blueMedium);

@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>Home</title>
+    <title>Contact Us</title>
 
     <script
       src="https://code.jquery.com/jquery-3.7.1.js"
@@ -22,7 +22,7 @@
     />
   </head>
 
-  <body onload="homeOnload()">
+  <body>
     <div class="content-wrapper">
       <header>
         <a class="brand-link" href="Home.html"
@@ -37,21 +37,30 @@
           <a id="headerLogout" href="Login.html" onclick="logout()">Logout</a>
         </div>
       </header>
-
-      <section class="no-background">
-        <div class="slider">
-          <div class="slider-button" onclick="homeSliderButton('left')">
-            <i class="fa fa-light fa-circle-arrow-left slider-icon"></i>
-          </div>
-          <div class="slider-show">
-            <img id="" src="" class="slider-image" />
-            <div class="slider-detail">
-              <div class="slider-title"></div>
+      <section>
+        <div class="contact">
+          <div class="section-header">PERSONAL INFORMATION</div>
+          <div class="contact-grid">
+            <div class="contact-grid-block">
+              <div>User:</div>
+              <div id="DBuser"></div>
             </div>
-          </div>
-
-          <div class="slider-button" onclick="homeSliderButton('right')">
-            <i class="fa fa-light fa-circle-arrow-right slider-icon"></i>
+            <div class="contact-grid-block">
+              <div>Address:</div>
+              <div id="DBaddress"></div>
+            </div>
+            <div class="contact-grid-block">
+              <div>Email:</div>
+              <div id="DBemail"></div>
+            </div>
+            <div class="contact-grid-block">
+              <div>Phone:</div>
+              <div id="DBphone"></div>
+            </div>
+            <div class="contact-grid-block">
+              <div>Password:</div>
+              <div id="DBpassword"></div>
+            </div>
           </div>
         </div>
       </section>
@@ -64,6 +73,7 @@
         </div>
       </footer>
     </div>
+
     <script src="../Javascript.js"></script>
   </body>
 </html>

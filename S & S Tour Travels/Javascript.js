@@ -6,6 +6,43 @@ var imageArray,
   registration = [],
   registerObject = {};
 
+var grabLocalStorageSignIn = localStorage.getItem("SignIn") || "[]";
+
+//////////////////////////// Common Header Onload Code ////////////////////////////////
+
+function checkLocalStorageSignin() {
+  if (grabLocalStorageSignIn === "[]" || grabLocalStorageSignIn === null) {
+    document.querySelector("#headerLogin").style.display = "flex";
+    document.querySelector("#headerLogout").style.display = "none";
+    document.querySelector("#headerProfile").style.display = "none";
+  } else {
+    document.querySelector("#headerLogin").style.display = "none";
+    document.querySelector("#headerLogout").style.display = "flex";
+    document.querySelector("#headerProfile").style.display = "block";
+
+    data = JSON.parse(grabLocalStorageSignIn);
+
+    user = `${data.title} ${data.firstname} ${data.lastname}`;
+    address = `${data.address} ${data.city} ${data.state} ${data.country}`;
+    document.querySelector("#DBuser").innerHTML = user;
+    document.querySelector("#DBaddress").innerHTML = address;
+    document.querySelector("#DBemail").innerHTML = `${data.email} `;
+    document.querySelector("#DBphone").innerHTML = `${data.phone} `;
+    document.querySelector("#DBpassword").innerHTML = `${data.password} `;
+  }
+}
+
+checkLocalStorageSignin();
+
+function logout() {
+  localStorage.setItem("SignIn", "[]");
+  document.querySelector("#headerLogin").style.display = "flex";
+  document.querySelector("#headerLogout").style.display = "none";
+  document.querySelector("#headerProfile").style.display = "none";
+}
+
+//////////////////////////// Load Image Object for Home and Login Code ////////////////////////////////
+
 function grabArrayObjectData() {
   imageArray = [
     {
@@ -185,13 +222,12 @@ function inputValidation(input) {
   if (input.value === "" || input.value === "PLEASE SELECT") {
     errorMessage(input);
   } else {
-    if (input.name === "email") {
+    if (input.name === "email" || input.name === "username") {
       if (!input.value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
         errorMessage(input);
         document.getElementById(input.name).innerHTML = "Enter email format";
       } else {
         var value = input.value;
-        // registerObject = { ...registerObject, email: value };
         Object.assign(registerObject, { email: value });
       }
     } else if (input.name === "phone") {
@@ -200,7 +236,6 @@ function inputValidation(input) {
         document.getElementById(input.name).innerHTML = "Enter 10 digit only";
       } else {
         var value = input.value;
-        // registerObject = { ...registerObject, phone: value };
         Object.assign(registerObject, { phone: value });
       }
     } else if (input.name === "title") {
@@ -209,13 +244,12 @@ function inputValidation(input) {
         document.getElementById(input.name).innerHTML = "Please select title";
       } else {
         var value = input.value;
-        // registerObject = { ...registerObject, firstname: value };
         Object.assign(registerObject, { title: value });
       }
     } else if (input.name === "address") {
       var value = input.value;
-      // registerObject = { ...registerObject, country: value };
       Object.assign(registerObject, { address: value });
+    } else if (input.name === "password") {
     } else {
       if (!input.value.match(/^[A-Za-z]+$/)) {
         errorMessage(input);
@@ -223,23 +257,18 @@ function inputValidation(input) {
       } else {
         if (input.name === "firstname") {
           var value = input.value;
-          // registerObject = { ...registerObject, firstname: value };
           Object.assign(registerObject, { firstname: value });
         } else if (input.name === "lastname") {
           var value = input.value;
-          // registerObject = { ...registerObject, lastname: value };
           Object.assign(registerObject, { lastname: value });
         } else if (input.name === "city") {
           var value = input.value;
-          // registerObject = { ...registerObject, city: value };
           Object.assign(registerObject, { city: value });
         } else if (input.name === "state") {
           var value = input.value;
-          // registerObject = { ...registerObject, state: value };
           Object.assign(registerObject, { state: value });
         } else if (input.name === "country") {
           var value = input.value;
-          // registerObject = { ...registerObject, country: value };
           Object.assign(registerObject, { country: value });
         }
       }
@@ -260,16 +289,59 @@ function loginLoadImage() {
   randomIndex++;
 }
 
+//////////////////////////// Login Grab Registration LocalStorage Code ////////////////////////////////
+
+function grabLocalStorageRegistration() {
+  var getRegistrations = localStorage.getItem("Registration") || "[]";
+  getRegistrations = JSON.parse(getRegistrations);
+
+  return getRegistrations;
+}
+
+//////////////////////////// Login SignIn Code ////////////////////////////////
+
 function SignInSubmission() {
   let signInFormSubmission = document.getElementById("login");
 
   signInFormSubmission.addEventListener("submit", (e) => {
     e.preventDefault();
-    var inputs = e.target.getElementsByTagName("input");
 
-    for (let index = 0; index < inputs.length; index++)
-      inputValidation(inputs[index]);
+    var getRegistrations = grabLocalStorageRegistration();
+
+    var email = e.target.querySelector(".username").value;
+    var password = e.target.querySelector(".password").value;
+
+    for (i = 0; i < getRegistrations.length; i++) {
+      if (
+        email === getRegistrations[i].email &&
+        password === getRegistrations[i].password
+      ) {
+        localStorage.setItem("SignIn", JSON.stringify(getRegistrations[i]));
+      }
+    }
   });
+}
+
+//////////////////////////// Login SignUp Code ////////////////////////////////
+
+function generatePassword() {
+  var length = 8,
+    charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+    retVal = "";
+  for (var i = 0, n = charset.length; i < length; ++i) {
+    retVal += charset.charAt(Math.floor(Math.random() * n));
+  }
+  return retVal;
+}
+
+function generateId() {
+  var length = 8,
+    charset = "0123456789",
+    retVal = "";
+  for (var i = 0, n = charset.length; i < length; ++i) {
+    retVal += charset.charAt(Math.floor(Math.random() * n));
+  }
+  return retVal;
 }
 
 function SignUpSubmission() {
@@ -278,20 +350,35 @@ function SignUpSubmission() {
   signUpFormSubmission.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    var getRegistrations = localStorage.getItem("Registration") || "[]";
-    getRegistrations = JSON.parse(getRegistrations);
-
+    var getRegistrations = grabLocalStorageRegistration();
     var inputs = e.target.querySelectorAll("select, input ,textarea");
 
     for (i = 0; i < inputs.length; i++) {
-      if (inputs[i] !== "") {
-        getRegistrations.push(registerObject);
-        localStorage.setItem("Registration", JSON.stringify(getRegistrations));
+      if (inputs[i].value === "" || inputs[i].value === "PLEASE SELECT") {
+        validation = false;
+        inputValidation(inputs[i]);
+        alert("Empty field");
+        break;
+      } else {
+        validation = true;
+      }
+    }
+
+    if (validation) {
+      Object.assign(registerObject, {
+        id: generateId(),
+        password: generatePassword(),
+      });
+      getRegistrations.push(registerObject);
+      localStorage.setItem("Registration", JSON.stringify(getRegistrations));
+      for (i = 0; i < inputs.length; i++) {
         inputs[i].value = "";
       }
     }
   });
 }
+
+//////////////////////////// Login Onload Function Code ////////////////////////////////
 
 function loginOnload() {
   grabArrayObjectData();

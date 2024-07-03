@@ -9,18 +9,35 @@
       crossorigin="anonymous"
     ></script>
 
-    <script>
-      $(function () {
-        $("#includedHeadScript").load("HeadScript.html");
-      });
-    </script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="../styles/Index.css" rel="stylesheet" type="text/css" />
+    <link rel="short icon" href="../Images/favicon.png" />
 
-    <script id="includedHeadScript"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
   </head>
 
   <body>
     <div class="content-wrapper">
-      <div id="includedHeader"></div>
+      <header>
+        <a class="brand-link" href="Home.html"
+          ><img src="../Images/Logo.png" class="brand"
+        /></a>
+        <div class="navigation">
+          <a href="Home.html">Home</a>
+          <a href="Reservation.html">Reservation</a>
+          <a href="Contact.html">Contact Us</a>
+          <a id="headerProfile" href="Profile.html">Profile</a>
+          <a id="headerLogin" href="Login.html">Login</a>
+          <a id="headerLogout" href="Login.html" onclick="logout()">Logout</a>
+        </div>
+      </header>
+
       <div class="reservation-by-selections">
         <div
           class="reservation-by-selection"
@@ -146,7 +163,14 @@
           <div class="form-error-message"></div>
         </div>
       </section>
-      <div id="includedFooter"></div>
+      <footer>
+        <div class="footer-tagline">
+          Travel With Us On Your Favourite Destination
+        </div>
+        <div class="footer-copyright">
+          © 2018 S & S Company Limited All Rights Reserved.
+        </div>
+      </footer>
     </div>
 
     <script src="../Javascript.js"></script>
