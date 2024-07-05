@@ -224,17 +224,17 @@ var phoneFormat = /^\d{10}$/;
 var alphabetFormat = /^[A-Za-z]+$/;
 
 function inputFocus(input) {
-  document.getElementById(input.name).style.display = "none";
+  input.previousElementSibling.style.display = "none";
 }
 
-function errorMessage(input) {
-  document.getElementById(input.name).style.display = "block";
+function errorMessage(input, message) {
+  input.previousElementSibling.style.display = "block";
+  input.previousElementSibling.innerHTML = message;
 }
 
 function inputValidationTitle(input) {
   if (input.value === "PLEASE SELECT") {
-    errorMessage(input);
-    document.getElementById(input.name).innerHTML = "Please select title";
+    errorMessage(input, "Please select title");
     submit = false;
   } else {
     submit = true;
@@ -244,8 +244,7 @@ function inputValidationTitle(input) {
 
 function inputValidationAlphabet(input) {
   if (!input.value.match(alphabetFormat)) {
-    errorMessage(input);
-    document.getElementById(input.name).innerHTML = "Enter alphabet only";
+    errorMessage(input, "Enter alphabet only");
     submit = false;
   } else {
     submit = true;
@@ -255,17 +254,14 @@ function inputValidationAlphabet(input) {
 
 function inputValidationEmail(input) {
   if (!input.value.match(emailFormat)) {
-    errorMessage(input);
-    document.getElementById(input.name).innerHTML = "Enter email format";
+    errorMessage(input, "Enter email format");
     submit = false;
   } else {
     var getRegistrations = grabLocalStorageRegistration();
     if (JSON.stringify(getRegistrations) !== "[]") {
       for (var i = 0; i < getRegistrations.length; i++) {
         if (input.value === getRegistrations[i].email) {
-          errorMessage(input);
-          document.getElementById(input.name).innerHTML =
-            "Email is already registered";
+          errorMessage(input, "Email is already registered");
           submit = false;
           break;
         } else {
@@ -281,8 +277,7 @@ function inputValidationEmail(input) {
 
 function inputValidationPhone(input) {
   if (!input.value.match(phoneFormat)) {
-    errorMessage(input);
-    document.getElementById(input.name).innerHTML = "Enter 10 digit only";
+    errorMessage(input, "Enter 10 digit only");
     submit = false;
   } else {
     submit = true;
@@ -297,20 +292,58 @@ function inputValidationAddress(input) {
 
 function inputValidationUsername(input) {
   if (!input.value.match(emailFormat)) {
-    errorMessage(input);
-    document.getElementById(input.name).innerHTML = "Enter email format";
+    errorMessage(input, "Enter email format");
+    signIn = "[]";
+    submit = false;
+  } else {
+    var getRegistrations = grabLocalStorageRegistration();
+    if (
+      JSON.stringify(getRegistrations) !== "[]" ||
+      getRegistrations !== null
+    ) {
+      for (var i = 0; i < getRegistrations.length; i++) {
+        if (input.value !== getRegistrations[i].email) {
+          errorMessage(input, "Enter is not registered");
+          signIn = "[]";
+          submit = false;
+        } else {
+          signIn = getRegistrations[i];
+          submit = true;
+        }
+      }
+    } else {
+      errorMessage(input, "Enter is not registered");
+      signIn = "[]";
+      submit = false;
+    }
+  }
+  return [submit, signIn];
+}
+
+function inputValidationPassword(input) {
+  var getRegistrations = grabLocalStorageRegistration();
+  if (JSON.stringify(getRegistrations) !== "[]" || getRegistrations !== null) {
+    for (var i = 0; i < getRegistrations.length; i++) {
+      if (input.value !== getRegistrations[i].password) {
+        errorMessage(input, "Password is not matching");
+        submit = false;
+      } else {
+        submit = true;
+      }
+    }
+  } else {
+    errorMessage(input, "Password is not matching");
     submit = false;
   }
-  return submit;
-}
-function inputValidationPassword(input) {
-  submit = true;
   return submit;
 }
 
 function inputValidation(input) {
   if (input.value === "" || input.value === "PLEASE SELECT") {
-    errorMessage(input);
+    errorMessage(
+      input,
+      `Enter ${input.name.charAt(0).toUpperCase() + input.name.substring(1)}`
+    );
     submit = false;
   } else if (input.value) {
     if (input.name === "title") {
@@ -354,34 +387,26 @@ function SignInSubmission() {
   signInFormSubmission.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    var getRegistrations = grabLocalStorageRegistration();
-
-    var email = e.target.querySelector(".username");
+    var username = e.target.querySelector(".username");
     var password = e.target.querySelector(".password");
 
-    if (
-      JSON.stringify(getRegistrations) !== "[]" ||
-      getRegistrations !== null
-    ) {
-      for (var i = 0; i < getRegistrations.length; i++) {
-        if (
-          (email.value !== getRegistrations[i].email &&
-            password.value === "") ||
-          (email.value !== getRegistrations[i].email && password.value !== "")
-        ) {
-          document.getElementById(email.name).innerHTML =
-            "Email is not registered";
-        } else if (
-          email.value === getRegistrations[i].email &&
-          password.value === getRegistrations[i].password
-        ) {
-          localStorage.setItem("SignIn", JSON.stringify(getRegistrations[i]));
-          document.location.href =
-            "/S%20%26%20S%20Tour%20Travels/html/Profile.html";
-        }
+    if (username.value !== "" && password.value !== "") {
+      var submitUsername = inputValidation(username);
+      var submitPassword = inputValidation(password);
+
+      if (submitUsername[0] === submitPassword) {
+        localStorage.setItem("SignIn", JSON.stringify(submitUsername[1]));
+        document.location.href =
+          "/S%20%26%20S%20Tour%20Travels/html/Profile.html";
+        checkLocalStorageSignin();
       }
-    } else {
-      document.getElementById(email.name).innerHTML = "Email is not registered";
+    } else if (username.value === "" && password.value === "") {
+      inputValidation(username);
+      inputValidation(password);
+    } else if (username.value === "" && password.value !== "") {
+      inputValidation(username);
+    } else if (username.value !== "" && password.value === "") {
+      inputValidation(password);
     }
   });
 }
