@@ -1,14 +1,14 @@
-//////////////////////////// Slider Images ////////////////////////////////
 var imageArray,
   sliderImageLength,
   randomIndex,
   validation = false,
+  submit = false,
   registration = [],
   registerObject = {};
 
 var grabLocalStorageSignIn = localStorage.getItem("SignIn") || "[]";
 
-//////////////////////////// Common Header Onload Code ////////////////////////////////
+////////////////////////// Common Header Onload Code ////////////////////////////////
 
 function checkLocalStorageSignin() {
   if (grabLocalStorageSignIn === "[]" || grabLocalStorageSignIn === null) {
@@ -41,7 +41,7 @@ function logout() {
   document.querySelector("#headerProfile").style.display = "none";
 }
 
-//////////////////////////// Load Image Object for Home and Login Code ////////////////////////////////
+////////////////////////// Load Image Object for Home and Login Code ////////////////////////////////
 
 function grabArrayObjectData() {
   imageArray = [
@@ -77,7 +77,7 @@ function grabArrayObjectData() {
 
 // Home page
 
-//////////////////////////// Home Slider Code ////////////////////////////////
+////////////////////////// Home Slider Code ////////////////////////////////
 
 function homeImageChange(randomIndex) {
   document.querySelector(".slider-image").src = imageArray[randomIndex].image;
@@ -108,14 +108,14 @@ function homeOnload() {
 
 // Reservation page
 
-//////////////////////////// Reservation Title Change Code ////////////////////////////////
+////////////////////////// Reservation Title Change Code ////////////////////////////////
 
 function reservationTitle(text) {
   document.querySelector("#reservation-heading").innerHTML =
     text + " RESERVATION";
 }
 
-//////////////////////////// Reservation Calculation Code ////////////////////////////////
+////////////////////////// Reservation Calculation Code ////////////////////////////////
 
 function reservationCalculate() {
   var from = document.form.from.value;
@@ -196,7 +196,7 @@ function checkTotalAmount(adult, child, journey, reservationClassPrice) {
 
 // Login page
 
-//////////////////////////// Login Signup and Signin Code ////////////////////////////////
+////////////////////////// Login Signup and Signin Code ////////////////////////////////
 
 function signUpButton() {
   document.querySelector(".login").style.display = "none";
@@ -208,7 +208,20 @@ function signInButton() {
   document.querySelector(".registration").style.display = "none";
 }
 
+////////////////////////// Login Grab Registration LocalStorage Code ////////////////////////////////
+
+function grabLocalStorageRegistration() {
+  var getRegistrations = localStorage.getItem("Registration") || "[]";
+  getRegistrations = JSON.parse(getRegistrations);
+
+  return getRegistrations;
+}
+
 //////////////////////////// Login Signup and Signin validation Code ////////////////////////////////
+
+var emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+var phoneFormat = /^\d{10}$/;
+var alphabetFormat = /^[A-Za-z]+$/;
 
 function inputFocus(input) {
   document.getElementById(input.name).style.display = "none";
@@ -218,65 +231,109 @@ function errorMessage(input) {
   document.getElementById(input.name).style.display = "block";
 }
 
+function inputValidationTitle(input) {
+  if (input.value === "PLEASE SELECT") {
+    errorMessage(input);
+    document.getElementById(input.name).innerHTML = "Please select title";
+    submit = false;
+  } else {
+    submit = true;
+  }
+  return submit;
+}
+
+function inputValidationAlphabet(input) {
+  if (!input.value.match(alphabetFormat)) {
+    errorMessage(input);
+    document.getElementById(input.name).innerHTML = "Enter alphabet only";
+    submit = false;
+  } else {
+    submit = true;
+  }
+  return submit;
+}
+
+function inputValidationEmail(input) {
+  if (!input.value.match(emailFormat)) {
+    errorMessage(input);
+    document.getElementById(input.name).innerHTML = "Enter email format";
+    submit = false;
+  } else {
+    var getRegistrations = grabLocalStorageRegistration();
+    if (JSON.stringify(getRegistrations) !== "[]") {
+      for (var i = 0; i < getRegistrations.length; i++) {
+        if (input.value === getRegistrations[i].email) {
+          errorMessage(input);
+          document.getElementById(input.name).innerHTML =
+            "Email is already registered";
+          submit = false;
+          break;
+        } else {
+          submit = true;
+        }
+      }
+    } else {
+      submit = true;
+    }
+  }
+  return submit;
+}
+
+function inputValidationPhone(input) {
+  if (!input.value.match(phoneFormat)) {
+    errorMessage(input);
+    document.getElementById(input.name).innerHTML = "Enter 10 digit only";
+    submit = false;
+  } else {
+    submit = true;
+  }
+  return submit;
+}
+
+function inputValidationAddress(input) {
+  submit = true;
+  return submit;
+}
+
+function inputValidationUsername(input) {
+  if (!input.value.match(emailFormat)) {
+    errorMessage(input);
+    document.getElementById(input.name).innerHTML = "Enter email format";
+    submit = false;
+  }
+  return submit;
+}
+function inputValidationPassword(input) {
+  submit = true;
+  return submit;
+}
+
 function inputValidation(input) {
   if (input.value === "" || input.value === "PLEASE SELECT") {
     errorMessage(input);
-  } else {
-    if (input.name === "email" || input.name === "username") {
-      if (!input.value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
-        errorMessage(input);
-        document.getElementById(input.name).innerHTML = "Enter email format";
-      } else {
-        var value = input.value;
-        Object.assign(registerObject, { email: value });
-      }
+    submit = false;
+  } else if (input.value) {
+    if (input.name === "title") {
+      submit = inputValidationTitle(input);
+    } else if (input.name === "email") {
+      submit = inputValidationEmail(input);
     } else if (input.name === "phone") {
-      if (!input.value.match(/^\d{10}$/)) {
-        errorMessage(input);
-        document.getElementById(input.name).innerHTML = "Enter 10 digit only";
-      } else {
-        var value = input.value;
-        Object.assign(registerObject, { phone: value });
-      }
-    } else if (input.name === "title") {
-      if (input.value === "PLEASE SELECT") {
-        errorMessage(input);
-        document.getElementById(input.name).innerHTML = "Please select title";
-      } else {
-        var value = input.value;
-        Object.assign(registerObject, { title: value });
-      }
+      submit = inputValidationPhone(input);
     } else if (input.name === "address") {
-      var value = input.value;
-      Object.assign(registerObject, { address: value });
+      submit = inputValidationAddress(input);
+    } else if (input.name === "username") {
+      submit = inputValidationUsername(input);
     } else if (input.name === "password") {
+      submit = inputValidationPassword(input);
     } else {
-      if (!input.value.match(/^[A-Za-z]+$/)) {
-        errorMessage(input);
-        document.getElementById(input.name).innerHTML = "Enter alphabet only";
-      } else {
-        if (input.name === "firstname") {
-          var value = input.value;
-          Object.assign(registerObject, { firstname: value });
-        } else if (input.name === "lastname") {
-          var value = input.value;
-          Object.assign(registerObject, { lastname: value });
-        } else if (input.name === "city") {
-          var value = input.value;
-          Object.assign(registerObject, { city: value });
-        } else if (input.name === "state") {
-          var value = input.value;
-          Object.assign(registerObject, { state: value });
-        } else if (input.name === "country") {
-          var value = input.value;
-          Object.assign(registerObject, { country: value });
-        }
-      }
+      submit = inputValidationAlphabet(input);
     }
   }
+
+  return submit;
 }
 
-//////////////////////////// Login Slider Code ////////////////////////////////
+////////////////////////// Login Slider Code ////////////////////////////////
 
 function loginLoadImage() {
   if (randomIndex === sliderImageLength) {
@@ -289,16 +346,7 @@ function loginLoadImage() {
   randomIndex++;
 }
 
-//////////////////////////// Login Grab Registration LocalStorage Code ////////////////////////////////
-
-function grabLocalStorageRegistration() {
-  var getRegistrations = localStorage.getItem("Registration") || "[]";
-  getRegistrations = JSON.parse(getRegistrations);
-
-  return getRegistrations;
-}
-
-//////////////////////////// Login SignIn Code ////////////////////////////////
+////////////////////////// Login SignIn Code ////////////////////////////////
 
 function SignInSubmission() {
   let signInFormSubmission = document.getElementById("login");
@@ -308,21 +356,37 @@ function SignInSubmission() {
 
     var getRegistrations = grabLocalStorageRegistration();
 
-    var email = e.target.querySelector(".username").value;
-    var password = e.target.querySelector(".password").value;
+    var email = e.target.querySelector(".username");
+    var password = e.target.querySelector(".password");
 
-    for (i = 0; i < getRegistrations.length; i++) {
-      if (
-        email === getRegistrations[i].email &&
-        password === getRegistrations[i].password
-      ) {
-        localStorage.setItem("SignIn", JSON.stringify(getRegistrations[i]));
+    if (
+      JSON.stringify(getRegistrations) !== "[]" ||
+      getRegistrations !== null
+    ) {
+      for (var i = 0; i < getRegistrations.length; i++) {
+        if (
+          (email.value !== getRegistrations[i].email &&
+            password.value === "") ||
+          (email.value !== getRegistrations[i].email && password.value !== "")
+        ) {
+          document.getElementById(email.name).innerHTML =
+            "Email is not registered";
+        } else if (
+          email.value === getRegistrations[i].email &&
+          password.value === getRegistrations[i].password
+        ) {
+          localStorage.setItem("SignIn", JSON.stringify(getRegistrations[i]));
+          document.location.href =
+            "/S%20%26%20S%20Tour%20Travels/html/Profile.html";
+        }
       }
+    } else {
+      document.getElementById(email.name).innerHTML = "Email is not registered";
     }
   });
 }
 
-//////////////////////////// Login SignUp Code ////////////////////////////////
+////////////////////////// Login SignUp Code ////////////////////////////////
 
 function generatePassword() {
   var length = 8,
@@ -353,14 +417,14 @@ function SignUpSubmission() {
     var getRegistrations = grabLocalStorageRegistration();
     var inputs = e.target.querySelectorAll("select, input ,textarea");
 
-    for (i = 0; i < inputs.length; i++) {
-      if (inputs[i].value === "" || inputs[i].value === "PLEASE SELECT") {
-        validation = false;
-        inputValidation(inputs[i]);
-        alert("Empty field");
-        break;
-      } else {
+    for (var i = 0; i < inputs.length; i++) {
+      let submitForm = inputValidation(inputs[i]);
+      if (submitForm) {
         validation = true;
+        Object.assign(registerObject, { [inputs[i].name]: inputs[i].value });
+      } else {
+        validation = false;
+        break;
       }
     }
 
@@ -371,14 +435,14 @@ function SignUpSubmission() {
       });
       getRegistrations.push(registerObject);
       localStorage.setItem("Registration", JSON.stringify(getRegistrations));
-      for (i = 0; i < inputs.length; i++) {
+      for (var i = 0; i < inputs.length; i++) {
         inputs[i].value = "";
       }
     }
   });
 }
 
-//////////////////////////// Login Onload Function Code ////////////////////////////////
+////////////////////////// Login Onload Function Code ////////////////////////////////
 
 function loginOnload() {
   grabArrayObjectData();
