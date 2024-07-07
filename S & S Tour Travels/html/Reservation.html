@@ -76,16 +76,34 @@
             <div class="form-inputs">
               <div class="form-input-block">
                 LEAVING FROM
-                <select name="from" class="form-input-field">
-                  <option value="mumbai" selected="selected">MUMBAI</option>
+                <div class="form-error-message"></div>
+                <select
+                  name="from"
+                  class="form-input-field"
+                  onfocus="inputFocus(this)"
+                  onblur="inputValidation(this)"
+                >
+                  <option selected="selected" value="PLEASE SELECT">
+                    PLEASE SELECT
+                  </option>
+                  <option value="mumbai">MUMBAI</option>
                   <option value="delhi">DELHI</option>
                   <option value="banglore">BANGLORE</option>
                 </select>
               </div>
               <div class="form-input-block">
                 GOING TO
-                <select name="to" class="form-input-field">
-                  <option value="mumbai" selected="selected">MUMBAI</option>
+                <div class="form-error-message"></div>
+                <select
+                  name="to"
+                  class="form-input-field"
+                  onfocus="inputFocus(this)"
+                  onblur="inputValidation(this)"
+                >
+                  <option selected="selected" value="PLEASE SELECT">
+                    PLEASE SELECT
+                  </option>
+                  <option value="mumbai">MUMBAI</option>
                   <option value="delhi">DELHI</option>
                   <option value="banglore">BANGLORE</option>
                 </select>
@@ -102,27 +120,28 @@
               <div class="form-input-block">
                 CHILDREN
                 <select name="child" class="form-input-field">
-                  <option value="1" selected="selected">1</option>
+                  <option value="0" selected="selected">0</option>
+                  <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
                 </select>
               </div>
               <div class="form-input-block">
                 DEPARTURE
+                <div class="form-error-message"></div>
                 <input
-                  type="text"
-                  value="11.30pm"
+                  type="datetime-local"
+                  name="departure"
                   class="form-input-field"
-                  disabled
                 />
               </div>
               <div class="form-input-block">
                 RETURN
+                <div class="form-error-message"></div>
                 <input
-                  type="text"
-                  value="12.40am"
+                  type="datetime-local"
+                  name="return"
                   class="form-input-field"
-                  disabled
                 />
               </div>
               <div class="form-input-block">
