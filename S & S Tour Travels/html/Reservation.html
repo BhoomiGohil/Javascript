@@ -22,7 +22,7 @@
     />
   </head>
 
-  <body>
+  <body onload="reservationOnLoad()">
     <div class="content-wrapper">
       <header>
         <a class="brand-link" href="Home.html"
@@ -130,18 +130,23 @@
                 DEPARTURE
                 <div class="form-error-message"></div>
                 <input
-                  type="datetime-local"
+                  type="date"
                   name="departure"
-                  class="form-input-field"
+                  min=""
+                  max=""
+                  onchange="ChangeStartDate()"
+                  class="start-date form-input-field"
                 />
               </div>
               <div class="form-input-block">
                 RETURN
                 <div class="form-error-message"></div>
                 <input
-                  type="datetime-local"
+                  type="date"
                   name="return"
-                  class="form-input-field"
+                  min=""
+                  max=""
+                  class="end-date form-input-field"
                 />
               </div>
               <div class="form-input-block">

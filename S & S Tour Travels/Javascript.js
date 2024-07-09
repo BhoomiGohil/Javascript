@@ -1,18 +1,44 @@
-var imageArray,
-  sliderImageLength,
-  randomIndex,
-  validation = false,
-  submit = false,
-  registration = [],
-  registerObject = {};
+////////////////////////// Header code ////////////////////////////////
 
-var grabLocalStorageSignIn = localStorage.getItem("SignIn") || "[]";
+let grabLocalStorageSignIn = localStorage.getItem("SignIn") || "[]";
 
-//////////////////////////// Validation Code ////////////////////////////////
+function checkLocalStorageSignin() {
+  if (grabLocalStorageSignIn === "[]" || grabLocalStorageSignIn === null) {
+    document.querySelector("#headerLogin").style.display = "flex";
+    document.querySelector("#headerLogout").style.display = "none";
+    document.querySelector("#headerProfile").style.display = "none";
+  } else {
+    document.querySelector("#headerLogin").style.display = "none";
+    document.querySelector("#headerLogout").style.display = "flex";
+    document.querySelector("#headerProfile").style.display = "block";
 
-var emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-var phoneFormat = /^\d{10}$/;
-var alphabetFormat = /^[A-Za-z]+$/;
+    data = JSON.parse(grabLocalStorageSignIn);
+
+    user = `${data.title} ${data.firstname} ${data.lastname}`;
+    address = `${data.address} ${data.city} ${data.state} ${data.country}`;
+    document.querySelector("#DBuser").innerHTML = user;
+    document.querySelector("#DBaddress").innerHTML = address;
+    document.querySelector("#DBemail").innerHTML = `${data.email} `;
+    document.querySelector("#DBphone").innerHTML = `${data.phone} `;
+    document.querySelector("#DBpassword").innerHTML = `${data.password} `;
+  }
+}
+
+checkLocalStorageSignin();
+
+function logout() {
+  localStorage.setItem("SignIn", "[]");
+  document.querySelector("#headerLogin").style.display = "flex";
+  document.querySelector("#headerLogout").style.display = "none";
+  document.querySelector("#headerProfile").style.display = "none";
+}
+
+//////////////////////////// Form validation code ////////////////////////////////
+
+let submit = false;
+let emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+let phoneFormat = /^\d{10}$/;
+let alphabetFormat = /^[A-Za-z]+$/;
 
 function inputFocus(input) {
   input.previousElementSibling.style.display = "none";
@@ -49,9 +75,9 @@ function inputValidationEmail(input) {
     errorMessage(input, "Enter email format");
     submit = false;
   } else {
-    var getRegistrations = grabLocalStorageRegistration();
+    let getRegistrations = grabLocalStorageRegistration();
     if (JSON.stringify(getRegistrations) !== "[]") {
-      for (var i = 0; i < getRegistrations.length; i++) {
+      for (let i = 0; i < getRegistrations.length; i++) {
         if (input.value === getRegistrations[i].email) {
           errorMessage(input, "Email is already registered");
           submit = false;
@@ -88,12 +114,12 @@ function inputValidationUsername(input) {
     signIn = "[]";
     submit = false;
   } else {
-    var getRegistrations = grabLocalStorageRegistration();
+    let getRegistrations = grabLocalStorageRegistration();
     if (
       JSON.stringify(getRegistrations) !== "[]" ||
       getRegistrations !== null
     ) {
-      for (var i = 0; i < getRegistrations.length; i++) {
+      for (let i = 0; i < getRegistrations.length; i++) {
         if (input.value !== getRegistrations[i].email) {
           errorMessage(input, "Enter is not registered");
           signIn = "[]";
@@ -113,9 +139,9 @@ function inputValidationUsername(input) {
 }
 
 function inputValidationPassword(input) {
-  var getRegistrations = grabLocalStorageRegistration();
+  let getRegistrations = grabLocalStorageRegistration();
   if (JSON.stringify(getRegistrations) !== "[]" || getRegistrations !== null) {
-    for (var i = 0; i < getRegistrations.length; i++) {
+    for (let i = 0; i < getRegistrations.length; i++) {
       if (input.value !== getRegistrations[i].password) {
         errorMessage(input, "Password is not matching");
         submit = false;
@@ -131,7 +157,7 @@ function inputValidationPassword(input) {
 }
 
 function inputValidationFrom(input) {
-  var to = document.form.to;
+  let to = document.form.to;
   if (input.value === to.value) {
     errorMessage(input, "Please select different destinations.");
     errorMessage(to, "Please select different destinations.");
@@ -147,7 +173,7 @@ function inputValidationFrom(input) {
 }
 
 function inputValidationTo(input) {
-  var from = document.form.from;
+  let from = document.form.from;
   if (input.value === from.value) {
     errorMessage(input, "Please select different destinations.");
     errorMessage(from, "Please select different destinations.");
@@ -198,40 +224,9 @@ function inputValidation(input) {
   return submit;
 }
 
-////////////////////////// Common Header Onload Code ////////////////////////////////
+////////////////////////// Load Images's object for Home and Login page code ////////////////////////////////
 
-function checkLocalStorageSignin() {
-  if (grabLocalStorageSignIn === "[]" || grabLocalStorageSignIn === null) {
-    document.querySelector("#headerLogin").style.display = "flex";
-    document.querySelector("#headerLogout").style.display = "none";
-    document.querySelector("#headerProfile").style.display = "none";
-  } else {
-    document.querySelector("#headerLogin").style.display = "none";
-    document.querySelector("#headerLogout").style.display = "flex";
-    document.querySelector("#headerProfile").style.display = "block";
-
-    data = JSON.parse(grabLocalStorageSignIn);
-
-    user = `${data.title} ${data.firstname} ${data.lastname}`;
-    address = `${data.address} ${data.city} ${data.state} ${data.country}`;
-    document.querySelector("#DBuser").innerHTML = user;
-    document.querySelector("#DBaddress").innerHTML = address;
-    document.querySelector("#DBemail").innerHTML = `${data.email} `;
-    document.querySelector("#DBphone").innerHTML = `${data.phone} `;
-    document.querySelector("#DBpassword").innerHTML = `${data.password} `;
-  }
-}
-
-checkLocalStorageSignin();
-
-function logout() {
-  localStorage.setItem("SignIn", "[]");
-  document.querySelector("#headerLogin").style.display = "flex";
-  document.querySelector("#headerLogout").style.display = "none";
-  document.querySelector("#headerProfile").style.display = "none";
-}
-
-////////////////////////// Load Image Object for Home and Login Code ////////////////////////////////
+let imageArray, sliderImageLength, randomIndex;
 
 function grabArrayObjectData() {
   imageArray = [
@@ -308,24 +303,24 @@ function reservationTitle(text) {
 ////////////////////////// Reservation Calculation Code ////////////////////////////////
 
 function reservationCalculate() {
-  var ways = document.form.ways;
+  let ways = document.form.ways;
 
-  var journey = 1;
+  let journey = 1;
   if (ways === "two") {
     journey = 1.5;
   }
 
-  var from = document.form.from;
-  var to = document.form.to;
+  let from = document.form.from;
+  let to = document.form.to;
 
-  var adult = document.form.adult;
-  var child = document.form.child;
+  let adult = document.form.adult;
+  let child = document.form.child;
 
-  var cabinClass = document.form.cabinClass;
-  var economicPrice = 0;
-  var reservationClassPrice;
+  let cabinClass = document.form.cabinClass;
+  let economicPrice = 0;
+  let reservationClassPrice;
 
-  var kmPrice = 5;
+  let kmPrice = 5;
 
   const places = {
     delhi: {
@@ -343,17 +338,17 @@ function reservationCalculate() {
   };
 
   function measureKm(lat1, lon1, lat2, lon2) {
-    var R = 6378.137; // Radius of earth in KM
-    var dLat = (lat2 * Math.PI) / 180 - (lat1 * Math.PI) / 180;
-    var dLon = (lon2 * Math.PI) / 180 - (lon1 * Math.PI) / 180;
-    var a =
+    let R = 6378.137; // Radius of earth in KM
+    let dLat = (lat2 * Math.PI) / 180 - (lat1 * Math.PI) / 180;
+    let dLon = (lon2 * Math.PI) / 180 - (lon1 * Math.PI) / 180;
+    let a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
       Math.cos((lat1 * Math.PI) / 180) *
         Math.cos((lat2 * Math.PI) / 180) *
         Math.sin(dLon / 2) *
         Math.sin(dLon / 2);
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    var d = R * c;
+    let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    let d = R * c;
     return d; // km
   }
 
@@ -367,8 +362,8 @@ function reservationCalculate() {
     (from.value !== "Please Select" || from.value !== "PLEASE SELECT") &&
     (to.value !== "Please Select" || to.value !== "PLEASE SELECT")
   ) {
-    var submitFrom = inputValidation(from);
-    var submitTo = inputValidation(to);
+    let submitFrom = inputValidation(from);
+    let submitTo = inputValidation(to);
 
     if (submitFrom === submitTo) {
       economicPrice =
@@ -394,7 +389,7 @@ function reservationCalculate() {
   }
 
   reservationClassPrice = economicPrice;
-  if (cabinClass === "business") {
+  if (cabinClass.value === "business") {
     reservationClassPrice = economicPrice * 2.5;
   }
 
@@ -409,6 +404,17 @@ function reservationCalculate() {
 function checkTotalAmount(adult, child, journey, reservationClassPrice) {
   document.querySelector("#amount").innerHTML =
     (adult + child) * (reservationClassPrice * journey);
+}
+
+function ChangeStartDate() {
+  let startDate = document.querySelector(".start-date").value;
+  document.querySelector(".end-date").min = startDate;
+}
+
+function reservationOnLoad() {
+  minDate = new Date().toISOString().split("T")[0];
+  document.querySelector(".start-date").min = minDate;
+  document.querySelector(".end-date").min = minDate;
 }
 
 // Login page
@@ -428,7 +434,7 @@ function signInButton() {
 ////////////////////////// Login Grab Registration LocalStorage Code ////////////////////////////////
 
 function grabLocalStorageRegistration() {
-  var getRegistrations = localStorage.getItem("Registration") || "[]";
+  let getRegistrations = localStorage.getItem("Registration") || "[]";
   getRegistrations = JSON.parse(getRegistrations);
 
   return getRegistrations;
@@ -449,18 +455,22 @@ function loginLoadImage() {
 
 ////////////////////////// Login SignIn Code ////////////////////////////////
 
+let validation = false,
+  registration = [],
+  registerObject = {};
+
 function SignInSubmission() {
   let signInFormSubmission = document.getElementById("login");
 
   signInFormSubmission.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    var username = e.target.querySelector(".username");
-    var password = e.target.querySelector(".password");
+    let username = e.target.querySelector(".username");
+    let password = e.target.querySelector(".password");
 
     if (username.value !== "" && password.value !== "") {
-      var submitUsername = inputValidation(username);
-      var submitPassword = inputValidation(password);
+      let submitUsername = inputValidation(username);
+      let submitPassword = inputValidation(password);
 
       if (submitUsername[0] === submitPassword) {
         localStorage.setItem("SignIn", JSON.stringify(submitUsername[1]));
@@ -482,35 +492,36 @@ function SignInSubmission() {
 ////////////////////////// Login SignUp Code ////////////////////////////////
 
 function generatePassword() {
-  var length = 8,
+  let length = 8,
     charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
     retVal = "";
-  for (var i = 0, n = charset.length; i < length; ++i) {
+  for (let i = 0, n = charset.length; i < length; ++i) {
     retVal += charset.charAt(Math.floor(Math.random() * n));
   }
   return retVal;
 }
 
 function generateId() {
-  var length = 8,
+  let length = 8,
     charset = "0123456789",
     retVal = "";
-  for (var i = 0, n = charset.length; i < length; ++i) {
+  for (let i = 0, n = charset.length; i < length; ++i) {
     retVal += charset.charAt(Math.floor(Math.random() * n));
   }
   return retVal;
 }
 
 function SignUpSubmission() {
+  let validation = false;
   let signUpFormSubmission = document.getElementById("signup");
 
   signUpFormSubmission.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    var getRegistrations = grabLocalStorageRegistration();
-    var inputs = e.target.querySelectorAll("select, input ,textarea");
+    let getRegistrations = grabLocalStorageRegistration();
+    let inputs = e.target.querySelectorAll("select, input ,textarea");
 
-    for (var i = 0; i < inputs.length; i++) {
+    for (let i = 0; i < inputs.length; i++) {
       let submitForm = inputValidation(inputs[i]);
       if (submitForm) {
         validation = true;
@@ -528,7 +539,7 @@ function SignUpSubmission() {
       });
       getRegistrations.push(registerObject);
       localStorage.setItem("Registration", JSON.stringify(getRegistrations));
-      for (var i = 0; i < inputs.length; i++) {
+      for (let i = 0; i < inputs.length; i++) {
         inputs[i].value = "";
       }
     }
