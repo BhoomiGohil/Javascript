@@ -412,9 +412,21 @@ function ChangeStartDate() {
 }
 
 function reservationOnLoad() {
-  minDate = new Date().toISOString().split("T")[0];
-  document.querySelector(".start-date").min = minDate;
-  document.querySelector(".end-date").min = minDate;
+  let todayDate = new Date();
+
+  Date.prototype.addDays = function (d) {
+    this.setDate(this.getDate() + d);
+    return this;
+  };
+
+  var sevenDays = new Date().addDays(7);
+
+  function dateConvert(date) {
+    return date.toISOString().split("T")[0];
+  }
+
+  document.querySelector(".start-date").min = dateConvert(todayDate);
+  document.querySelector(".end-date").min = dateConvert(sevenDays);
 }
 
 // Login page

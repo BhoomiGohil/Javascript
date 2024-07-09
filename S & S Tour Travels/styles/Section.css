@@ -22,4 +22,5 @@ section {
   font-weight: bold;
   color: var(--blueDark);
   text-align: center;
+  text-transform: uppercase;
 }

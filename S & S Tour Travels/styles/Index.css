@@ -35,6 +35,12 @@ body {
   box-sizing: inherit;
 }
 
+input,
+select,
+textarea {
+  text-transform: uppercase;
+}
+
 input {
   margin: 0;
 }

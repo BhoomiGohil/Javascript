@@ -43,39 +43,39 @@
           class="reservation-by-selection"
           onclick="reservationTitle(this.innerHTML)"
         >
-          FLIGHT
+          Flight
         </div>
         <div
           class="reservation-by-selection"
           onclick="reservationTitle(this.innerHTML)"
         >
-          RAILWAY
+          Railway
         </div>
         <div
           class="reservation-by-selection"
           onclick="reservationTitle(this.innerHTML)"
         >
-          BUS
+          Bus
         </div>
       </div>
       <section>
         <div class="reservation">
           <div class="section-header" id="reservation-heading">
-            FLIGHT RESERVATION
+            Flight Reservation
           </div>
           <form class="reservation-form" name="form">
             <div class="form-input-buttons">
               <div class="form-input-button">
-                <input type="radio" name="ways" value="one" checked />ONE WAY
+                <input type="radio" name="ways" value="one" checked />One Way
               </div>
               <div class="form-input-button">
-                <input type="radio" name="ways" value="two" />RETURN
+                <input type="radio" name="ways" value="two" />Round Trip
               </div>
             </div>
 
             <div class="form-inputs">
               <div class="form-input-block">
-                LEAVING FROM
+                From
                 <div class="form-error-message"></div>
                 <select
                   name="from"
@@ -84,15 +84,15 @@
                   onblur="inputValidation(this)"
                 >
                   <option selected="selected" value="PLEASE SELECT">
-                    PLEASE SELECT
+                    Please Select
                   </option>
-                  <option value="mumbai">MUMBAI</option>
-                  <option value="delhi">DELHI</option>
-                  <option value="banglore">BANGLORE</option>
+                  <option value="mumbai">Mumbai</option>
+                  <option value="delhi">Delhi</option>
+                  <option value="banglore">Banglore</option>
                 </select>
               </div>
               <div class="form-input-block">
-                GOING TO
+                To
                 <div class="form-error-message"></div>
                 <select
                   name="to"
@@ -101,16 +101,16 @@
                   onblur="inputValidation(this)"
                 >
                   <option selected="selected" value="PLEASE SELECT">
-                    PLEASE SELECT
+                    Please Select
                   </option>
-                  <option value="mumbai">MUMBAI</option>
-                  <option value="delhi">DELHI</option>
-                  <option value="banglore">BANGLORE</option>
+                  <option value="mumbai">Mumbai</option>
+                  <option value="delhi">Delhi</option>
+                  <option value="banglore">Banglore</option>
                 </select>
               </div>
 
               <div class="form-input-block">
-                ADULTS
+                Adults
                 <select name="adult" class="form-input-field">
                   <option value="1" selected="selected">1</option>
                   <option value="2">2</option>
@@ -118,7 +118,7 @@
                 </select>
               </div>
               <div class="form-input-block">
-                CHILDREN
+                Children
                 <select name="child" class="form-input-field">
                   <option value="0" selected="selected">0</option>
                   <option value="1">1</option>
@@ -127,7 +127,7 @@
                 </select>
               </div>
               <div class="form-input-block">
-                DEPARTURE
+                Departure
                 <div class="form-error-message"></div>
                 <input
                   type="date"
@@ -139,7 +139,7 @@
                 />
               </div>
               <div class="form-input-block">
-                RETURN
+                Return
                 <div class="form-error-message"></div>
                 <input
                   type="date"
@@ -150,7 +150,7 @@
                 />
               </div>
               <div class="form-input-block">
-                CABIN/CLASS
+                Cabin/Class
                 <div class="form-input-buttons">
                   <div class="form-input-button">
                     <input
@@ -158,14 +158,12 @@
                       name="cabinClass"
                       value="economy"
                       checked="checked"
-                    />ECONOMY
+                    />
+                    Economy
                   </div>
                   <div class="form-input-button">
-                    <input
-                      type="radio"
-                      name="cabinClass"
-                      value="business"
-                    />BUSINESS
+                    <input type="radio" name="cabinClass" value="business" />
+                    Business
                   </div>
                 </div>
               </div>
@@ -180,11 +178,19 @@
               />
             </div>
             <div class="form-buttons">
-              <div class="reservation-total" id="total">TOTAL :</div>
+              <div class="reservation-total" id="total">Total :</div>
               <div class="reservation-total" id="amount">0</div>
             </div>
           </form>
-          <div class="form-error-message"></div>
+          <div class="reservation-lists">
+            <div class="reservation-list">
+              <img />
+              <p></p>
+            </div>
+            <div class="reservation-list">List 2</div>
+            <div class="reservation-list">List 3</div>
+            <div class="reservation-list">List 4</div>
+          </div>
         </div>
       </section>
       <footer>
