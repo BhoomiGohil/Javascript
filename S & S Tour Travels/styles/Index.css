@@ -13,6 +13,8 @@
   --blueDark: #0d406a;
   --blueMedium: #1e638d;
   --blueLight: #2aabe1;
+  --blueExtra: aliceblue;
+  --border: #f5fafb;
   --red: red;
 }
 
@@ -125,4 +127,23 @@ input {
   float: left;
   color: var(--red);
   font-size: 12px;
+}
+
+.no-border {
+  border: none;
+}
+
+.red {
+  color: var(--white);
+  background-color: var(--red);
+}
+
+.blue {
+  color: var(--white);
+  background-color: var(--blueDark);
+}
+
+.black {
+  color: var(--white);
+  background-color: var(--black);
 }

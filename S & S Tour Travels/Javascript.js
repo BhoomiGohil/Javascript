@@ -426,7 +426,9 @@ function reservationOnLoad() {
   }
 
   document.querySelector(".start-date").min = dateConvert(todayDate);
-  document.querySelector(".end-date").min = dateConvert(sevenDays);
+  document.querySelector(".start-date").value = dateConvert(todayDate);
+  document.querySelector(".end-date").min = dateConvert(todayDate);
+  document.querySelector(".end-date").value = dateConvert(sevenDays);
 }
 
 // Login page
