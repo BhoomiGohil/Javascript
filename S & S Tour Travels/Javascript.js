@@ -298,25 +298,22 @@ function homeOnload() {
 let airlineArray = [
   {
     number: "AC 056",
-    name: "Air India",
-    seats: 120,
-    wifi: false,
-  },
-  {
-    number: "AC 132",
     name: "Air Mumbai",
+    operate: "Mumbai",
     seats: 200,
     wifi: true,
   },
   {
     number: "AC 436",
     name: "Air Delhi",
+    operate: "Delhi",
     seats: 130,
     wifi: false,
   },
   {
     number: "AC 393",
     name: "Air Banglore",
+    operate: "Banglore",
     seats: 120,
     wifi: true,
   },
