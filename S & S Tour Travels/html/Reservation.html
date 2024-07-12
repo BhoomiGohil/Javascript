@@ -149,38 +149,15 @@
                   class="end-date form-input-field"
                 />
               </div>
-              <div class="form-input-block">
-                Cabin/Class
-                <div class="form-input-buttons">
-                  <div class="form-input-button">
-                    <input
-                      type="radio"
-                      name="cabinClass"
-                      value="economy"
-                      checked="checked"
-                    />
-                    Economy
-                  </div>
-                  <div class="form-input-button">
-                    <input type="radio" name="cabinClass" value="business" />
-                    Business
-                  </div>
-                </div>
-              </div>
             </div>
 
             <div class="form-buttons">
               <input
                 type="button"
                 class="form-button"
-                value="CHECK"
+                value="Find"
                 onclick="reservationCalculate()"
               />
-            </div>
-
-            <div class="form-buttons">
-              <div class="reservation-total" id="total">Total :</div>
-              <div class="reservation-total" id="amount">0</div>
             </div>
 
             <div class="reservation-lists">
@@ -199,13 +176,34 @@
                 <div class="reservation-price-detail black">Business Class</div>
               </div>
               <div class="reservation-list">
-                <div class="reservation-detail">
-                  <div class="reservation-timing">
-                    <div class="reservation-start-time">22:35</div>
-                    <div class="reservation-hour">
+                <div class="reservation-route-detail">
+                  <div class="reservation-route-timing">
+                    <div class="reservation-route-start-time">22:35</div>
+                    <div class="reservation-route-hours">
                       1 Stop - 18hr25m (arriving 27 - Jul)
                     </div>
-                    <div class="reservation-end-time">02:30</div>
+                    <div class="reservation-route-end-time">02:30</div>
+                  </div>
+                  <div class="reservation-route-locations">
+                    <div class="reservation-route-location">
+                      <p>Toronto</p>
+                      <p>Mumbai</p>
+                    </div>
+                    <div class="reservation-route-stops">
+                      <div class="reservation-route-dots"></div>
+                      <img
+                        src="../Images/wifi.jpg"
+                        class="reservation-route-wifi"
+                      />
+                      <div class="reservation-route-text"><p>DEL</p></div>
+                      <img
+                        src="../Images/wifi.jpg"
+                        class="reservation-route-wifi"
+                      />
+                      <div class="reservation-route-dots"></div>
+                      <div class="reservation-route-line"></div>
+                    </div>
+                    <div class="reservation-route-waiting-time">+ 2hr10m</div>
                   </div>
                 </div>
                 <div class="reservation-price-detail">

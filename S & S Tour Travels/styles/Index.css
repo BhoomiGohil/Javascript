@@ -37,6 +37,10 @@ body {
   box-sizing: inherit;
 }
 
+p {
+  margin: 0;
+}
+
 input,
 select,
 textarea {

@@ -66,28 +66,95 @@
   text-transform: capitalize;
 }
 
-.reservation-detail {
+.reservation-route-detail {
   width: 100%;
   display: flex;
   flex-direction: column;
 }
 
-.reservation-detail,
-.reservation-price-detail {
-  border-right: 1.5px solid var(--border);
-  border-left: 1.5px solid var(--border);
-}
-
-.reservation-timing,
-.reservation-price-detail {
-  padding: 10px 10px;
-}
-
-.reservation-timing {
+.reservation-route-timing {
   width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   background-color: var(--blueExtra);
+}
+
+.reservation-route-locations {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.reservation-route-location {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.reservation-route-stops {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 0;
+}
+
+.reservation-route-dots {
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  background-color: var(--black);
+}
+
+.reservation-route-wifi {
+  width: 20px;
+}
+
+.reservation-route-text {
+  padding: 0 5px;
+  background-color: var(--white);
+}
+
+.reservation-route-waiting-time {
+}
+
+.reservation-route-line {
+  width: 100%;
+  height: 1px;
+  position: absolute;
+  z-index: -1;
+  background-color: var(--black);
+}
+
+.reservation-price-detail {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.reservation-price {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.reservation-route-detail,
+.reservation-price-detail {
+  border-right: 1.5px solid var(--border);
+  border-left: 1.5px solid var(--border);
+}
+
+.reservation-route-timing,
+.reservation-price-detail,
+.reservation-route-locations {
+  padding: 10px 10px;
 }

@@ -293,6 +293,68 @@ function homeOnload() {
 
 // Reservation page
 
+////////////////////////// Flight Data Code ////////////////////////////////
+
+let airlineArray = [
+  {
+    number: "AC 056",
+    name: "Air India",
+    seats: 120,
+    wifi: false,
+  },
+  {
+    number: "AC 132",
+    name: "Air Mumbai",
+    seats: 200,
+    wifi: true,
+  },
+  {
+    number: "AC 436",
+    name: "Air Delhi",
+    seats: 130,
+    wifi: false,
+  },
+  {
+    number: "AC 393",
+    name: "Air Banglore",
+    seats: 120,
+    wifi: true,
+  },
+];
+
+let flightObject = [
+  {
+    day: 11,
+    month: "July",
+    year: 2024,
+  },
+  {
+    day: 12,
+    month: "July",
+    year: 2024,
+  },
+  {
+    day: 13,
+    month: "July",
+    year: 2024,
+  },
+  {
+    day: 15,
+    month: "July",
+    year: 2024,
+  },
+  {
+    day: 16,
+    month: "July",
+    year: 2024,
+  },
+  {
+    day: 17,
+    month: "July",
+    year: 2024,
+  },
+];
+
 ////////////////////////// Reservation Title Change Code ////////////////////////////////
 
 function reservationTitle(text) {
@@ -316,7 +378,6 @@ function reservationCalculate() {
   let adult = document.form.adult;
   let child = document.form.child;
 
-  let cabinClass = document.form.cabinClass;
   let economicPrice = 0;
   let reservationClassPrice;
 
@@ -414,21 +475,27 @@ function ChangeStartDate() {
 function reservationOnLoad() {
   let todayDate = new Date();
 
-  Date.prototype.addDays = function (d) {
-    this.setDate(this.getDate() + d);
+  Date.prototype.addDays = function (days) {
+    this.setDate(this.getDate() + days);
     return this;
   };
 
   var sevenDays = new Date().addDays(7);
+  var yearDays = new Date().addDays(365);
 
   function dateConvert(date) {
     return date.toISOString().split("T")[0];
   }
 
-  document.querySelector(".start-date").min = dateConvert(todayDate);
-  document.querySelector(".start-date").value = dateConvert(todayDate);
-  document.querySelector(".end-date").min = dateConvert(todayDate);
-  document.querySelector(".end-date").value = dateConvert(sevenDays);
+  var startDate = document.querySelector(".start-date");
+  startDate.min = dateConvert(todayDate);
+  startDate.max = dateConvert(yearDays);
+  startDate.value = dateConvert(todayDate);
+
+  var returnDate = document.querySelector(".end-date");
+  returnDate.min = dateConvert(todayDate);
+  returnDate.max = dateConvert(yearDays);
+  returnDate.value = dateConvert(sevenDays);
 }
 
 // Login page
