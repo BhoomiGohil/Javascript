@@ -295,6 +295,46 @@ function homeOnload() {
 
 ////////////////////////// Flight Data Code ////////////////////////////////
 
+let ways = document.form.ways;
+
+let journey = 1;
+
+let from = document.form.from;
+let to = document.form.to;
+let formOption;
+
+let adult = document.form.adult;
+let child = document.form.child;
+
+let economicPrice = 0;
+let premiumPrice = 1.5;
+let businessPrice = 2.5;
+let reservationClassPrice;
+
+let kmPrice = 5;
+
+function measureKm(
+  originLaltitude,
+  originLongitude,
+  destinationLaltitude,
+  destinationLongitude
+) {
+  let radius = 6378.137;
+  let Laltitude =
+    (destinationLaltitude * Math.PI) / 180 - (originLaltitude * Math.PI) / 180;
+  let Longitude =
+    (destinationLongitude * Math.PI) / 180 - (originLongitude * Math.PI) / 180;
+  let a =
+    Math.sin(Laltitude / 2) * Math.sin(Laltitude / 2) +
+    Math.cos((originLaltitude * Math.PI) / 180) *
+      Math.cos((destinationLaltitude * Math.PI) / 180) *
+      Math.sin(Longitude / 2) *
+      Math.sin(Longitude / 2);
+  let center = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  let distance = radius * center;
+  return distance;
+}
+
 let airlineArray = [
   {
     number: "AC 056",
@@ -319,36 +359,219 @@ let airlineArray = [
   },
 ];
 
+let airportObject = [
+  {
+    airportCode: 214,
+    airportName: "Mumbai Airport",
+    airportShortName: "Mum",
+    location: "Mumbai",
+    facilities: "Flights",
+    cooridates: { laltitude: 19.076, longitude: 72.8777 },
+  },
+  {
+    airportCode: 584,
+    airportName: "Delhi Airport",
+    airportShortName: "Del",
+    location: "Delhi",
+    facilities: "Flights",
+    cooridates: { laltitude: 28.7041, longitude: 77.1025 },
+  },
+  {
+    airportCode: 762,
+    airportName: "Banglore Airport",
+    airportShortName: "Ban",
+    location: "Banglore",
+    facilities: "Flights",
+    cooridates: { laltitude: 12.9716, longitude: 77.5946 },
+  },
+];
+
 let flightObject = [
   {
-    day: 11,
-    month: "July",
-    year: 2024,
+    flightId: 35536,
+    flightNumber: 236,
+    departureDateTime: "11:00 AM",
+    arrivalDateTime: "1:00 PM",
+    originAirportCode: airportObject[0].airportCode,
+    destinationAirportCode: airportObject[1].airportCode,
+    availableSeats: Math.floor(Math.random() * 200),
+    stopAirportCode: [],
+    economy:
+      measureKm(
+        airportObject[0].cooridates.laltitude,
+        airportObject[0].cooridates.longitude,
+        airportObject[1].cooridates.laltitude,
+        airportObject[1].cooridates.longitude
+      ) * economicPrice,
+    premium:
+      measureKm(
+        airportObject[0].cooridates.laltitude,
+        airportObject[0].cooridates.longitude,
+        airportObject[1].cooridates.laltitude,
+        airportObject[1].cooridates.longitude
+      ) * premiumPrice,
+    business:
+      measureKm(
+        airportObject[0].cooridates.laltitude,
+        airportObject[0].cooridates.longitude,
+        airportObject[1].cooridates.laltitude,
+        airportObject[1].cooridates.longitude
+      ) * businessPrice,
   },
   {
-    day: 12,
-    month: "July",
-    year: 2024,
+    flightId: 65476,
+    flightNumber: 362,
+    departureDateTime: "11:00 AM",
+    arrivalDateTime: "1:00 PM",
+    originAirportCode: airportObject[0].airportCode,
+    destinationAirportCode: airportObject[2].airportCode,
+    availableSeats: Math.floor(Math.random() * 200),
+    stopAirportCode: [airportObject[1].airportCode],
+    economy:
+      measureKm(
+        airportObject[0].cooridates.laltitude,
+        airportObject[0].cooridates.longitude,
+        airportObject[2].cooridates.laltitude,
+        airportObject[2].cooridates.longitude
+      ) * economicPrice,
+    premium:
+      measureKm(
+        airportObject[0].cooridates.laltitude,
+        airportObject[0].cooridates.longitude,
+        airportObject[2].cooridates.laltitude,
+        airportObject[2].cooridates.longitude
+      ) * premiumPrice,
+    business:
+      measureKm(
+        airportObject[0].cooridates.laltitude,
+        airportObject[0].cooridates.longitude,
+        airportObject[2].cooridates.laltitude,
+        airportObject[2].cooridates.longitude
+      ) * businessPrice,
   },
   {
-    day: 13,
-    month: "July",
-    year: 2024,
+    flightId: 73561,
+    flightNumber: 273,
+    departureDateTime: "11:00 AM",
+    arrivalDateTime: "1:00 PM",
+    originAirportCode: airportObject[1].airportCode,
+    destinationAirportCode: airportObject[0].airportCode,
+    availableSeats: Math.floor(Math.random() * 200),
+    stopAirportCode: [],
+    economy:
+      measureKm(
+        airportObject[1].cooridates.laltitude,
+        airportObject[1].cooridates.longitude,
+        airportObject[0].cooridates.laltitude,
+        airportObject[0].cooridates.longitude
+      ) * economicPrice,
+    premium:
+      measureKm(
+        airportObject[1].cooridates.laltitude,
+        airportObject[1].cooridates.longitude,
+        airportObject[0].cooridates.laltitude,
+        airportObject[0].cooridates.longitude
+      ) * premiumPrice,
+    business:
+      measureKm(
+        airportObject[1].cooridates.laltitude,
+        airportObject[1].cooridates.longitude,
+        airportObject[0].cooridates.laltitude,
+        airportObject[0].cooridates.longitude
+      ) * businessPrice,
   },
   {
-    day: 15,
-    month: "July",
-    year: 2024,
+    flightId: 45235,
+    flightNumber: 232,
+    departureDateTime: "11:00 AM",
+    arrivalDateTime: "1:00 PM",
+    originAirportCode: airportObject[1].airportCode,
+    destinationAirportCode: airportObject[2].airportCode,
+    availableSeats: Math.floor(Math.random() * 200),
+    stopAirportCode: [],
+    economy:
+      measureKm(
+        airportObject[1].cooridates.laltitude,
+        airportObject[1].cooridates.longitude,
+        airportObject[2].cooridates.laltitude,
+        airportObject[2].cooridates.longitude
+      ) * economicPrice,
+    premium:
+      measureKm(
+        airportObject[1].cooridates.laltitude,
+        airportObject[1].cooridates.longitude,
+        airportObject[2].cooridates.laltitude,
+        airportObject[2].cooridates.longitude
+      ) * premiumPrice,
+    business:
+      measureKm(
+        airportObject[1].cooridates.laltitude,
+        airportObject[1].cooridates.longitude,
+        airportObject[2].cooridates.laltitude,
+        airportObject[2].cooridates.longitude
+      ) * businessPrice,
   },
   {
-    day: 16,
-    month: "July",
-    year: 2024,
+    flightId: 63718,
+    flightNumber: 452,
+    departureDateTime: "11:00 AM",
+    arrivalDateTime: "1:00 PM",
+    originAirportCode: airportObject[2].airportCode,
+    destinationAirportCode: airportObject[0].airportCode,
+    availableSeats: Math.floor(Math.random() * 200),
+    stopAirportCode: [airportObject[1].airportCode],
+    economy:
+      measureKm(
+        airportObject[2].cooridates.laltitude,
+        airportObject[2].cooridates.longitude,
+        airportObject[0].cooridates.laltitude,
+        airportObject[0].cooridates.longitude
+      ) * economicPrice,
+    premium:
+      measureKm(
+        airportObject[2].cooridates.laltitude,
+        airportObject[2].cooridates.longitude,
+        airportObject[0].cooridates.laltitude,
+        airportObject[0].cooridates.longitude
+      ) * premiumPrice,
+    business:
+      measureKm(
+        airportObject[2].cooridates.laltitude,
+        airportObject[2].cooridates.longitude,
+        airportObject[0].cooridates.laltitude,
+        airportObject[0].cooridates.longitude
+      ) * businessPrice,
   },
   {
-    day: 17,
-    month: "July",
-    year: 2024,
+    flightId: 25143,
+    flightNumber: 634,
+    departureDateTime: "11:00 AM",
+    arrivalDateTime: "1:00 PM",
+    originAirportCode: airportObject[2].airportCode,
+    destinationAirportCode: airportObject[1].airportCode,
+    availableSeats: Math.floor(Math.random() * 200),
+    stopAirportCode: [],
+    economy:
+      measureKm(
+        airportObject[2].cooridates.laltitude,
+        airportObject[2].cooridates.longitude,
+        airportObject[1].cooridates.laltitude,
+        airportObject[1].cooridates.longitude
+      ) * economicPrice,
+    premium:
+      measureKm(
+        airportObject[2].cooridates.laltitude,
+        airportObject[2].cooridates.longitude,
+        airportObject[1].cooridates.laltitude,
+        airportObject[1].cooridates.longitude
+      ) * premiumPrice,
+    business:
+      measureKm(
+        airportObject[2].cooridates.laltitude,
+        airportObject[2].cooridates.longitude,
+        airportObject[1].cooridates.laltitude,
+        airportObject[1].cooridates.longitude
+      ) * businessPrice,
   },
 ];
 
@@ -361,53 +584,33 @@ function reservationTitle(text) {
 
 ////////////////////////// Reservation Calculation Code ////////////////////////////////
 
-function reservationCalculate() {
-  let ways = document.form.ways;
+function ChangeStartDate() {
+  let startDate = document.querySelector(".start-date").value;
+  document.querySelector(".end-date").min = startDate;
+}
 
-  let journey = 1;
-  if (ways === "two") {
-    journey = 1.5;
-  }
+function reservationFlights() {
+  function flights(from, to) {
+    let fromCode, toCode;
 
-  let from = document.form.from;
-  let to = document.form.to;
+    for (i = 0; i < airportObject.length; i++) {
+      if (airportObject[i].location === from)
+        fromCode = airportObject[i].airportCode;
+    }
 
-  let adult = document.form.adult;
-  let child = document.form.child;
+    for (i = 0; i < airportObject.length; i++) {
+      if (airportObject[i].location === to)
+        toCode = airportObject[i].airportCode;
+    }
 
-  let economicPrice = 0;
-  let reservationClassPrice;
-
-  let kmPrice = 5;
-
-  const places = {
-    delhi: {
-      laltitude: 28.7041,
-      longitude: 77.1025,
-    },
-    mumbai: {
-      laltitude: 19.076,
-      longitude: 72.8777,
-    },
-    banglore: {
-      laltitude: 12.9716,
-      longitude: 77.5946,
-    },
-  };
-
-  function measureKm(lat1, lon1, lat2, lon2) {
-    let R = 6378.137; // Radius of earth in KM
-    let dLat = (lat2 * Math.PI) / 180 - (lat1 * Math.PI) / 180;
-    let dLon = (lon2 * Math.PI) / 180 - (lon1 * Math.PI) / 180;
-    let a =
-      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.cos((lat1 * Math.PI) / 180) *
-        Math.cos((lat2 * Math.PI) / 180) *
-        Math.sin(dLon / 2) *
-        Math.sin(dLon / 2);
-    let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    let d = R * c;
-    return d; // km
+    for (i = 0; i < flightObject.length; i++) {
+      if (
+        flightObject[i].originAirportCode === fromCode &&
+        flightObject[i].destinationAirportCode === toCode
+      ) {
+        console.log(fromCode, toCode);
+      }
+    }
   }
 
   if (
@@ -423,14 +626,8 @@ function reservationCalculate() {
     let submitFrom = inputValidation(from);
     let submitTo = inputValidation(to);
 
-    if (submitFrom === submitTo) {
-      economicPrice =
-        measureKm(
-          places[from.value].laltitude,
-          places[from.value].longitude,
-          places[to.value].laltitude,
-          places[to.value].longitude
-        ) * kmPrice;
+    if (submitFrom && submitTo) {
+      flights(from.value, to.value);
     }
   } else if (
     (from.value === "Please Select" || from.value === "PLEASE SELECT") &&
@@ -445,31 +642,41 @@ function reservationCalculate() {
     inputValidation(from);
     inputValidation(to);
   }
-
-  reservationClassPrice = economicPrice;
-  if (cabinClass.value === "business") {
-    reservationClassPrice = economicPrice * 2.5;
-  }
-
-  checkTotalAmount(
-    Number(adult.value),
-    Number(child.value),
-    Number(journey),
-    Number(reservationClassPrice.toFixed(0))
-  );
-}
-
-function checkTotalAmount(adult, child, journey, reservationClassPrice) {
-  document.querySelector("#amount").innerHTML =
-    (adult + child) * (reservationClassPrice * journey);
-}
-
-function ChangeStartDate() {
-  let startDate = document.querySelector(".start-date").value;
-  document.querySelector(".end-date").min = startDate;
 }
 
 function reservationOnLoad() {
+  if (ways === "two") {
+    journey = 1.5;
+  }
+
+  for (i = 0; i < airportObject.length; i++) {
+    formOption = document.createElement("option");
+    formOption.value = airportObject[i].location;
+    formOption.innerHTML = airportObject[i].location;
+    from.appendChild(formOption);
+  }
+
+  for (i = 0; i < airportObject.length; i++) {
+    formOption = document.createElement("option");
+    formOption.value = airportObject[i].location;
+    formOption.innerHTML = airportObject[i].location;
+    to.appendChild(formOption);
+  }
+
+  for (i = 1; i <= 100; i++) {
+    formOption = document.createElement("option");
+    formOption.value = i;
+    formOption.innerHTML = i;
+    adult.appendChild(formOption);
+  }
+
+  for (i = 0; i <= 100; i++) {
+    formOption = document.createElement("option");
+    formOption.value = i;
+    formOption.innerHTML = i;
+    child.appendChild(formOption);
+  }
+
   let todayDate = new Date();
 
   Date.prototype.addDays = function (days) {
