@@ -306,9 +306,9 @@ let formOption;
 let adult = document.form.adult;
 let child = document.form.child;
 
-let economicPrice = 0;
-let premiumPrice = 1.5;
-let businessPrice = 2.5;
+let economicPrice = 1;
+let premiumPrice = 1.2;
+let businessPrice = 1.5;
 let reservationClassPrice;
 
 let kmPrice = 5;
@@ -361,20 +361,22 @@ let airlineArray = [
 
 let airportObject = [
   {
-    airportCode: 214,
-    airportName: "Mumbai Airport",
-    airportShortName: "Mum",
-    location: "Mumbai",
-    facilities: "Flights",
-    cooridates: { laltitude: 19.076, longitude: 72.8777 },
-  },
-  {
     airportCode: 584,
     airportName: "Delhi Airport",
     airportShortName: "Del",
     location: "Delhi",
     facilities: "Flights",
     cooridates: { laltitude: 28.7041, longitude: 77.1025 },
+    flightAssign: airlineArray[1],
+  },
+  {
+    airportCode: 214,
+    airportName: "Mumbai Airport",
+    airportShortName: "Mum",
+    location: "Mumbai",
+    facilities: "Flights",
+    cooridates: { laltitude: 19.076, longitude: 72.8777 },
+    flightAssign: airlineArray[0],
   },
   {
     airportCode: 762,
@@ -383,6 +385,7 @@ let airportObject = [
     location: "Banglore",
     facilities: "Flights",
     cooridates: { laltitude: 12.9716, longitude: 77.5946 },
+    flightAssign: airlineArray[2],
   },
 ];
 
@@ -396,27 +399,30 @@ let flightObject = [
     destinationAirportCode: airportObject[1].airportCode,
     availableSeats: Math.floor(Math.random() * 200),
     stopAirportCode: [],
-    economy:
+    economy: Math.floor(
       measureKm(
         airportObject[0].cooridates.laltitude,
         airportObject[0].cooridates.longitude,
         airportObject[1].cooridates.laltitude,
         airportObject[1].cooridates.longitude
-      ) * economicPrice,
-    premium:
+      ) * economicPrice
+    ),
+    premium: Math.floor(
       measureKm(
         airportObject[0].cooridates.laltitude,
         airportObject[0].cooridates.longitude,
         airportObject[1].cooridates.laltitude,
         airportObject[1].cooridates.longitude
-      ) * premiumPrice,
-    business:
+      ) * premiumPrice
+    ),
+    business: Math.floor(
       measureKm(
         airportObject[0].cooridates.laltitude,
         airportObject[0].cooridates.longitude,
         airportObject[1].cooridates.laltitude,
         airportObject[1].cooridates.longitude
-      ) * businessPrice,
+      ) * businessPrice
+    ),
   },
   {
     flightId: 65476,
@@ -426,28 +432,33 @@ let flightObject = [
     originAirportCode: airportObject[0].airportCode,
     destinationAirportCode: airportObject[2].airportCode,
     availableSeats: Math.floor(Math.random() * 200),
-    stopAirportCode: [airportObject[1].airportCode],
-    economy:
+    stopAirportCode: [
+      { code: airportObject[1].airportCode, waitingTime: "2hr 35min" },
+    ],
+    economy: Math.floor(
       measureKm(
         airportObject[0].cooridates.laltitude,
         airportObject[0].cooridates.longitude,
         airportObject[2].cooridates.laltitude,
         airportObject[2].cooridates.longitude
-      ) * economicPrice,
-    premium:
+      ) * economicPrice
+    ),
+    premium: Math.floor(
       measureKm(
         airportObject[0].cooridates.laltitude,
         airportObject[0].cooridates.longitude,
         airportObject[2].cooridates.laltitude,
         airportObject[2].cooridates.longitude
-      ) * premiumPrice,
-    business:
+      ) * premiumPrice
+    ),
+    business: Math.floor(
       measureKm(
         airportObject[0].cooridates.laltitude,
         airportObject[0].cooridates.longitude,
         airportObject[2].cooridates.laltitude,
         airportObject[2].cooridates.longitude
-      ) * businessPrice,
+      ) * businessPrice
+    ),
   },
   {
     flightId: 73561,
@@ -458,27 +469,30 @@ let flightObject = [
     destinationAirportCode: airportObject[0].airportCode,
     availableSeats: Math.floor(Math.random() * 200),
     stopAirportCode: [],
-    economy:
+    economy: Math.floor(
       measureKm(
         airportObject[1].cooridates.laltitude,
         airportObject[1].cooridates.longitude,
         airportObject[0].cooridates.laltitude,
         airportObject[0].cooridates.longitude
-      ) * economicPrice,
-    premium:
+      ) * economicPrice
+    ),
+    premium: Math.floor(
       measureKm(
         airportObject[1].cooridates.laltitude,
         airportObject[1].cooridates.longitude,
         airportObject[0].cooridates.laltitude,
         airportObject[0].cooridates.longitude
-      ) * premiumPrice,
-    business:
+      ) * premiumPrice
+    ),
+    business: Math.floor(
       measureKm(
         airportObject[1].cooridates.laltitude,
         airportObject[1].cooridates.longitude,
         airportObject[0].cooridates.laltitude,
         airportObject[0].cooridates.longitude
-      ) * businessPrice,
+      ) * businessPrice
+    ),
   },
   {
     flightId: 45235,
@@ -489,27 +503,30 @@ let flightObject = [
     destinationAirportCode: airportObject[2].airportCode,
     availableSeats: Math.floor(Math.random() * 200),
     stopAirportCode: [],
-    economy:
+    economy: Math.floor(
       measureKm(
         airportObject[1].cooridates.laltitude,
         airportObject[1].cooridates.longitude,
         airportObject[2].cooridates.laltitude,
         airportObject[2].cooridates.longitude
-      ) * economicPrice,
-    premium:
+      ) * economicPrice
+    ),
+    premium: Math.floor(
       measureKm(
         airportObject[1].cooridates.laltitude,
         airportObject[1].cooridates.longitude,
         airportObject[2].cooridates.laltitude,
         airportObject[2].cooridates.longitude
-      ) * premiumPrice,
-    business:
+      ) * premiumPrice
+    ),
+    business: Math.floor(
       measureKm(
         airportObject[1].cooridates.laltitude,
         airportObject[1].cooridates.longitude,
         airportObject[2].cooridates.laltitude,
         airportObject[2].cooridates.longitude
-      ) * businessPrice,
+      ) * businessPrice
+    ),
   },
   {
     flightId: 63718,
@@ -519,28 +536,33 @@ let flightObject = [
     originAirportCode: airportObject[2].airportCode,
     destinationAirportCode: airportObject[0].airportCode,
     availableSeats: Math.floor(Math.random() * 200),
-    stopAirportCode: [airportObject[1].airportCode],
-    economy:
+    stopAirportCode: [
+      { code: airportObject[1].airportCode, waitingTime: "2hr 35min" },
+    ],
+    economy: Math.floor(
       measureKm(
         airportObject[2].cooridates.laltitude,
         airportObject[2].cooridates.longitude,
         airportObject[0].cooridates.laltitude,
         airportObject[0].cooridates.longitude
-      ) * economicPrice,
-    premium:
+      ) * economicPrice
+    ),
+    premium: Math.floor(
       measureKm(
         airportObject[2].cooridates.laltitude,
         airportObject[2].cooridates.longitude,
         airportObject[0].cooridates.laltitude,
         airportObject[0].cooridates.longitude
-      ) * premiumPrice,
-    business:
+      ) * premiumPrice
+    ),
+    business: Math.floor(
       measureKm(
         airportObject[2].cooridates.laltitude,
         airportObject[2].cooridates.longitude,
         airportObject[0].cooridates.laltitude,
         airportObject[0].cooridates.longitude
-      ) * businessPrice,
+      ) * businessPrice
+    ),
   },
   {
     flightId: 25143,
@@ -551,27 +573,30 @@ let flightObject = [
     destinationAirportCode: airportObject[1].airportCode,
     availableSeats: Math.floor(Math.random() * 200),
     stopAirportCode: [],
-    economy:
+    economy: Math.floor(
       measureKm(
         airportObject[2].cooridates.laltitude,
         airportObject[2].cooridates.longitude,
         airportObject[1].cooridates.laltitude,
         airportObject[1].cooridates.longitude
-      ) * economicPrice,
-    premium:
+      ) * economicPrice
+    ),
+    premium: Math.floor(
       measureKm(
         airportObject[2].cooridates.laltitude,
         airportObject[2].cooridates.longitude,
         airportObject[1].cooridates.laltitude,
         airportObject[1].cooridates.longitude
-      ) * premiumPrice,
-    business:
+      ) * premiumPrice
+    ),
+    business: Math.floor(
       measureKm(
         airportObject[2].cooridates.laltitude,
         airportObject[2].cooridates.longitude,
         airportObject[1].cooridates.laltitude,
         airportObject[1].cooridates.longitude
-      ) * businessPrice,
+      ) * businessPrice
+    ),
   },
 ];
 
@@ -589,30 +614,179 @@ function ChangeStartDate() {
   document.querySelector(".end-date").min = startDate;
 }
 
-function reservationFlights() {
-  function flights(from, to) {
-    let fromCode, toCode;
+function flights(from, to) {
+  let lists = document.querySelector(".reservation-lists");
 
-    for (i = 0; i < airportObject.length; i++) {
-      if (airportObject[i].location === from)
-        fromCode = airportObject[i].airportCode;
+  for (i = 0; i < airportObject.length; i++) {
+    if (airportObject[i].location === from) {
+      fromCode = airportObject[i].airportCode;
     }
-
-    for (i = 0; i < airportObject.length; i++) {
-      if (airportObject[i].location === to)
-        toCode = airportObject[i].airportCode;
-    }
-
-    for (i = 0; i < flightObject.length; i++) {
-      if (
-        flightObject[i].originAirportCode === fromCode &&
-        flightObject[i].destinationAirportCode === toCode
-      ) {
-        console.log(fromCode, toCode);
-      }
+    if (airportObject[i].location === to) {
+      toCode = airportObject[i].airportCode;
     }
   }
 
+  for (i = 0; i < flightObject.length; i++) {
+    if (
+      flightObject[i].originAirportCode === fromCode &&
+      flightObject[i].destinationAirportCode === toCode
+    ) {
+      let list = document.createElement("div");
+      list.classList.add("reservation-list");
+
+      let listDetail = document.createElement("div");
+      listDetail.classList.add("reservation-route-detail");
+
+      list.appendChild(listDetail);
+
+      let timing = document.createElement("div");
+      timing.classList.add("reservation-route-timing");
+
+      listDetail.appendChild(timing);
+
+      let startingTime = document.createElement("div");
+      startingTime.classList.add("reservation-route-start-time");
+      startingTime.innerHTML = flightObject[i].departureDateTime;
+
+      let routeHours = document.createElement("div");
+      routeHours.classList.add("reservation-route-hours");
+
+      let endingTime = document.createElement("div");
+      endingTime.classList.add("reservation-route-end-time");
+      endingTime.innerHTML = flightObject[i].arrivalDateTime;
+
+      timing.appendChild(startingTime);
+      timing.appendChild(routeHours);
+      timing.appendChild(endingTime);
+
+      let locations = document.createElement("div");
+      locations.classList.add("reservation-route-locations");
+
+      listDetail.appendChild(locations);
+
+      let location = document.createElement("div");
+      location.classList.add("reservation-route-location");
+
+      locations.appendChild(location);
+
+      let locationFromP = document.createElement("p");
+      // locationFromP.classList.add("");
+      locationFromP.innerHTML = from;
+
+      let locationToP = document.createElement("p");
+      // locationToP.classList.add("");
+      locationToP.innerHTML = to;
+
+      location.appendChild(locationFromP);
+      location.appendChild(locationToP);
+
+      let stops = document.createElement("div");
+      stops.classList.add("reservation-route-stops");
+
+      locations.appendChild(stops);
+
+      let dotLeft = document.createElement("div");
+      dotLeft.classList.add("reservation-route-dots");
+
+      let wifiLeft = document.createElement("img");
+      wifiLeft.classList.add("reservation-route-wifi");
+      wifiLeft.src = "../Images/wifi.jpg";
+
+      let routes = document.createElement("div");
+      routes.classList.add("reservation-route-text");
+
+      let wifiRight = document.createElement("img");
+      wifiRight.classList.add("reservation-route-wifi");
+      wifiRight.src = "../Images/wifi.jpg";
+
+      let dotRight = document.createElement("div");
+      dotRight.classList.add("reservation-route-dots");
+
+      let stopsLine = document.createElement("div");
+      stopsLine.classList.add("reservation-route-line");
+
+      let waitingTime = document.createElement("div");
+      waitingTime.classList.add("reservation-route-waiting-time");
+
+      if (
+        flightObject[i].stopAirportCode !== null &&
+        flightObject[i].stopAirportCode.length > 0
+      ) {
+        for (j = 0; j < flightObject[i].stopAirportCode.length; j++) {
+          for (k = 0; k < airportObject.length; k++) {
+            let code = flightObject[i].stopAirportCode[j].code;
+            let time = flightObject[i].stopAirportCode[j].waitingTime;
+
+            if (airportObject[k].airportCode === code) {
+              let routeText = document.createElement("p");
+              routeText.innerHTML = airportObject[k].airportShortName;
+              routes.appendChild(routeText);
+
+              let waitingTimeText = document.createElement("p");
+              waitingTimeText.innerHTML = "+ " + time;
+              waitingTime.appendChild(waitingTimeText);
+            }
+          }
+        }
+      }
+
+      stops.appendChild(dotLeft);
+      stops.appendChild(routes);
+      stops.appendChild(dotRight);
+      stops.appendChild(stopsLine);
+
+      locations.appendChild(waitingTime);
+
+      let priceDetailEconomy = document.createElement("div");
+      priceDetailEconomy.classList.add("reservation-price-detail");
+
+      list.appendChild(priceDetailEconomy);
+
+      let priceEconomyPrice = document.createElement("p");
+      priceEconomyPrice.innerHTML = "$" + flightObject[i].economy;
+
+      let priceEconomyText = document.createElement("p");
+      priceEconomyText.innerHTML = "";
+
+      priceDetailEconomy.appendChild(priceEconomyPrice);
+      priceDetailEconomy.appendChild(priceEconomyText);
+
+      let priceDetailPremium = document.createElement("div");
+      priceDetailPremium.classList.add("reservation-price-detail");
+
+      list.appendChild(priceDetailPremium);
+
+      let pricePremiumPrice = document.createElement("p");
+      pricePremiumPrice.innerHTML = "$" + flightObject[i].premium;
+
+      let pricePremiumText = document.createElement("p");
+      pricePremiumText.innerHTML = "Mixed cabin";
+
+      priceDetailPremium.appendChild(pricePremiumPrice);
+      priceDetailPremium.appendChild(pricePremiumText);
+
+      let priceDetailBusiness = document.createElement("div");
+      priceDetailBusiness.classList.add("reservation-price-detail");
+
+      list.appendChild(priceDetailBusiness);
+
+      let priceBusinessPrice = document.createElement("p");
+      priceBusinessPrice.innerHTML = "$" + flightObject[i].business;
+
+      let priceBusinessText = document.createElement("p");
+      priceBusinessText.innerHTML = "Includes lie-flat seats";
+
+      priceDetailBusiness.appendChild(priceBusinessPrice);
+      priceDetailBusiness.appendChild(priceBusinessText);
+
+      lists.appendChild(list);
+    }
+  }
+}
+
+flights("Delhi", "Banglore");
+
+function reservationFlights() {
   if (
     (from.value === "Please Select" || from.value === "PLEASE SELECT") &&
     (to.value === "Please Select" || to.value === "PLEASE SELECT")

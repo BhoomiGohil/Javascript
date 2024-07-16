@@ -115,11 +115,20 @@
 }
 
 .reservation-route-text {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
   padding: 0 5px;
   background-color: var(--white);
+  text-transform: uppercase;
 }
 
 .reservation-route-waiting-time {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
 }
 
 .reservation-route-line {
