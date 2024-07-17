@@ -335,27 +335,42 @@ function measureKm(
   return distance;
 }
 
-let airlineArray = [
+let airlineObject = [
   {
     number: "AC 056",
     name: "Air Mumbai",
     operate: "Mumbai",
-    seats: 200,
     wifi: true,
   },
   {
     number: "AC 436",
     name: "Air Delhi",
     operate: "Delhi",
-    seats: 130,
-    wifi: false,
+    wifi: true,
   },
   {
     number: "AC 393",
     name: "Air Banglore",
     operate: "Banglore",
-    seats: 120,
-    wifi: true,
+    wifi: false,
+  },
+  {
+    number: "AC 522",
+    name: "Air Mumbai",
+    operate: "Mumbai",
+    wifi: false,
+  },
+  {
+    number: "AC 346",
+    name: "Air Delhi",
+    operate: "Delhi",
+    wifi: false,
+  },
+  {
+    number: "AC 098",
+    name: "Air Banglore",
+    operate: "Banglore",
+    wifi: false,
   },
 ];
 
@@ -367,7 +382,6 @@ let airportObject = [
     location: "Delhi",
     facilities: "Flights",
     cooridates: { laltitude: 28.7041, longitude: 77.1025 },
-    flightAssign: airlineArray[1],
   },
   {
     airportCode: 214,
@@ -376,7 +390,6 @@ let airportObject = [
     location: "Mumbai",
     facilities: "Flights",
     cooridates: { laltitude: 19.076, longitude: 72.8777 },
-    flightAssign: airlineArray[0],
   },
   {
     airportCode: 762,
@@ -385,7 +398,6 @@ let airportObject = [
     location: "Banglore",
     facilities: "Flights",
     cooridates: { laltitude: 12.9716, longitude: 77.5946 },
-    flightAssign: airlineArray[2],
   },
 ];
 
@@ -398,6 +410,7 @@ let flightObject = [
     originAirportCode: airportObject[0].airportCode,
     destinationAirportCode: airportObject[1].airportCode,
     availableSeats: Math.floor(Math.random() * 200),
+    intialPlaneAssign: airlineObject[1],
     stopAirportCode: [],
     economy: Math.floor(
       measureKm(
@@ -432,8 +445,18 @@ let flightObject = [
     originAirportCode: airportObject[0].airportCode,
     destinationAirportCode: airportObject[2].airportCode,
     availableSeats: Math.floor(Math.random() * 200),
+    intialPlaneAssign: airlineObject[0],
     stopAirportCode: [
-      { code: airportObject[1].airportCode, waitingTime: "2hr 35min" },
+      {
+        code: airportObject[1].airportCode,
+        waitingTime: "2hr 35min",
+        planeAssign: airlineObject[2],
+      },
+      {
+        code: airportObject[0].airportCode,
+        waitingTime: "2hr 35min",
+        planeAssign: airlineObject[0],
+      },
     ],
     economy: Math.floor(
       measureKm(
@@ -468,6 +491,7 @@ let flightObject = [
     originAirportCode: airportObject[1].airportCode,
     destinationAirportCode: airportObject[0].airportCode,
     availableSeats: Math.floor(Math.random() * 200),
+    intialPlaneAssign: airlineObject[2],
     stopAirportCode: [],
     economy: Math.floor(
       measureKm(
@@ -502,6 +526,7 @@ let flightObject = [
     originAirportCode: airportObject[1].airportCode,
     destinationAirportCode: airportObject[2].airportCode,
     availableSeats: Math.floor(Math.random() * 200),
+    intialPlaneAssign: airlineObject[4],
     stopAirportCode: [],
     economy: Math.floor(
       measureKm(
@@ -536,8 +561,13 @@ let flightObject = [
     originAirportCode: airportObject[2].airportCode,
     destinationAirportCode: airportObject[0].airportCode,
     availableSeats: Math.floor(Math.random() * 200),
+    intialPlaneAssign: airlineObject[3],
     stopAirportCode: [
-      { code: airportObject[1].airportCode, waitingTime: "2hr 35min" },
+      {
+        code: airportObject[1].airportCode,
+        waitingTime: "2hr 35min",
+        planeAssign: null,
+      },
     ],
     economy: Math.floor(
       measureKm(
@@ -572,6 +602,7 @@ let flightObject = [
     originAirportCode: airportObject[2].airportCode,
     destinationAirportCode: airportObject[1].airportCode,
     availableSeats: Math.floor(Math.random() * 200),
+    intialPlaneAssign: airlineObject[5],
     stopAirportCode: [],
     economy: Math.floor(
       measureKm(
@@ -634,6 +665,8 @@ function flights(from, to) {
       let list = document.createElement("div");
       list.classList.add("reservation-list");
 
+      ////////////// List Detail //////////////
+
       let listDetail = document.createElement("div");
       listDetail.classList.add("reservation-route-detail");
 
@@ -650,6 +683,7 @@ function flights(from, to) {
 
       let routeHours = document.createElement("div");
       routeHours.classList.add("reservation-route-hours");
+      routeHours.innerHTML = flightObject[i].stopAirportCode.length + " Stop";
 
       let endingTime = document.createElement("div");
       endingTime.classList.add("reservation-route-end-time");
@@ -658,6 +692,8 @@ function flights(from, to) {
       timing.appendChild(startingTime);
       timing.appendChild(routeHours);
       timing.appendChild(endingTime);
+
+      ////////////// Route Locations //////////////
 
       let locations = document.createElement("div");
       locations.classList.add("reservation-route-locations");
@@ -680,48 +716,128 @@ function flights(from, to) {
       location.appendChild(locationFromP);
       location.appendChild(locationToP);
 
+      ////////////// Route Stops //////////////
+
       let stops = document.createElement("div");
       stops.classList.add("reservation-route-stops");
 
       locations.appendChild(stops);
 
-      let dotLeft = document.createElement("div");
-      dotLeft.classList.add("reservation-route-dots");
-
-      let wifiLeft = document.createElement("img");
-      wifiLeft.classList.add("reservation-route-wifi");
-      wifiLeft.src = "../Images/wifi.jpg";
+      if (
+        flightObject[i].originAirportCode !== null &&
+        flightObject[i].originAirportCode
+      ) {
+        let dotLeft = document.createElement("div");
+        dotLeft.classList.add("reservation-route-dots");
+        stops.appendChild(dotLeft);
+        for (j = 0; j < airlineObject.length; j++) {
+          if (
+            airlineObject[j].number === flightObject[i].intialPlaneAssign.number
+          ) {
+            if (airlineObject[j].wifi) {
+              let wifiLeft = document.createElement("img");
+              wifiLeft.classList.add("reservation-route-wifi");
+              wifiLeft.src = "../Images/wifi.jpg";
+              stops.appendChild(wifiLeft);
+            } else {
+              let wifiLeft = document.createElement("img");
+              wifiLeft.classList.add("reservation-route-wifi");
+              wifiLeft.src = "";
+              stops.appendChild(wifiLeft);
+            }
+          }
+        }
+      }
 
       let routes = document.createElement("div");
       routes.classList.add("reservation-route-text");
-
-      let wifiRight = document.createElement("img");
-      wifiRight.classList.add("reservation-route-wifi");
-      wifiRight.src = "../Images/wifi.jpg";
-
-      let dotRight = document.createElement("div");
-      dotRight.classList.add("reservation-route-dots");
-
-      let stopsLine = document.createElement("div");
-      stopsLine.classList.add("reservation-route-line");
-
-      let waitingTime = document.createElement("div");
-      waitingTime.classList.add("reservation-route-waiting-time");
 
       if (
         flightObject[i].stopAirportCode !== null &&
         flightObject[i].stopAirportCode.length > 0
       ) {
         for (j = 0; j < flightObject[i].stopAirportCode.length; j++) {
+          let code = flightObject[i].stopAirportCode[j].code;
           for (k = 0; k < airportObject.length; k++) {
-            let code = flightObject[i].stopAirportCode[j].code;
-            let time = flightObject[i].stopAirportCode[j].waitingTime;
-
             if (airportObject[k].airportCode === code) {
               let routeText = document.createElement("p");
               routeText.innerHTML = airportObject[k].airportShortName;
               routes.appendChild(routeText);
+            }
+          }
+        }
+      }
 
+      stops.appendChild(routes);
+
+      if (
+        flightObject[i].destinationAirportCode !== null &&
+        flightObject[i].destinationAirportCode
+      ) {
+        if (flightObject[i].stopAirportCode[0].planeAssign !== null) {
+          for (j = 0; j < airlineObject.length; j++) {
+            if (
+              airlineObject[j].number ===
+              flightObject[i].stopAirportCode[0].planeAssign.number
+            ) {
+              if (airlineObject[j].wifi) {
+                let wifiRight = document.createElement("img");
+                wifiRight.classList.add("reservation-route-wifi");
+                wifiRight.src = "../Images/wifi.jpg";
+                stops.appendChild(wifiRight);
+              } else {
+                let wifiRight = document.createElement("img");
+                wifiRight.classList.add("reservation-route-wifi");
+                wifiRight.src = "";
+                stops.appendChild(wifiRight);
+              }
+            }
+          }
+        } else {
+          for (j = 0; j < airlineObject.length; j++) {
+            if (
+              airlineObject[j].number ===
+              flightObject[i].intialPlaneAssign.number
+            ) {
+              if (airlineObject[j].wifi) {
+                let wifiRight = document.createElement("img");
+                wifiRight.classList.add("reservation-route-wifi");
+                wifiRight.src = "../Images/wifi.jpg";
+                stops.appendChild(wifiRight);
+              } else {
+                let wifiRight = document.createElement("img");
+                wifiRight.classList.add("reservation-route-wifi");
+                wifiRight.src = "";
+              }
+            }
+          }
+        }
+        dotRight = document.createElement("div");
+        dotRight.classList.add("reservation-route-dots");
+        stops.appendChild(dotRight);
+      }
+
+      let stopsLine = document.createElement("div");
+      stopsLine.classList.add("reservation-route-line");
+
+      stops.appendChild(stopsLine);
+
+      ////////////// Waiting Time //////////////s
+
+      let waitingTime = document.createElement("div");
+      waitingTime.classList.add("reservation-route-waiting-time");
+
+      locations.appendChild(waitingTime);
+
+      if (
+        flightObject[i].stopAirportCode !== null &&
+        flightObject[i].stopAirportCode.length > 0
+      ) {
+        for (j = 0; j < flightObject[i].stopAirportCode.length; j++) {
+          let code = flightObject[i].stopAirportCode[j].code;
+          let time = flightObject[i].stopAirportCode[j].waitingTime;
+          for (k = 0; k < airportObject.length; k++) {
+            if (airportObject[k].airportCode === code) {
               let waitingTimeText = document.createElement("p");
               waitingTimeText.innerHTML = "+ " + time;
               waitingTime.appendChild(waitingTimeText);
@@ -730,12 +846,7 @@ function flights(from, to) {
         }
       }
 
-      stops.appendChild(dotLeft);
-      stops.appendChild(routes);
-      stops.appendChild(dotRight);
-      stops.appendChild(stopsLine);
-
-      locations.appendChild(waitingTime);
+      ////////////// Price Details //////////////
 
       let priceDetailEconomy = document.createElement("div");
       priceDetailEconomy.classList.add("reservation-price-detail");
