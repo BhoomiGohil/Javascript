@@ -4,8 +4,8 @@ It is simple design made by HTML , CSS and JavaScript.
 
 Home Page...
 
-<img src="Home.png">
+<img src="./Website Images/Home.png">
 
 Login Page...
 
-<img src="Login.png">
+<img src="./Website Images/Login.png">
