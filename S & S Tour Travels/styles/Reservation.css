@@ -175,3 +175,21 @@
 .reservation-route-locations {
   padding: 10px 10px;
 }
+
+.reservation-loading {
+  width: 100px;
+  height: 100px;
+  margin: 100px auto;
+  animation-name: loading;
+  animation-iteration-count: infinite;
+  animation-duration: 4s;
+}
+
+@keyframes loading {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

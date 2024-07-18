@@ -293,18 +293,7 @@ function homeOnload() {
 
 // Reservation page
 
-////////////////////////// Flight Data Code ////////////////////////////////
-
-var ways = document.form.ways;
-
-var journey = 1;
-
-var from = document.form.from;
-var to = document.form.to;
-var formOption;
-
-var adult = document.form.adult;
-var child = document.form.child;
+////////////////////////// Flight Dummy Data ////////////////////////////////
 
 var economicPrice = 1;
 var premiumPrice = 1.2;
@@ -702,227 +691,239 @@ function flights(from, to) {
     }
   }
 
-  for (var i = 0; i < flightObjects.length; i++) {
-    var flightObject = flightObjects[i]; // Assign
-    var flightOrigin = flightObject.originAirportCode; // Assign
-    var flightDestination = flightObject.destinationAirportCode; // Assign
-    var flightDepartureTime = flightObject.departureDateTime; // Assign
-    var flightArrivalTime = flightObject.arrivalDateTime; // Assign
-    var flightStopCode = flightObject.stopAirportCode; // Assign
-    var flightPlaneAssign = flightObject.intialPlaneAssign; // Assign
+  var loading = document.createElement("img");
+  loading.classList.add("reservation-loading");
+  loading.src = "../Images/loading.jpeg";
 
-    if (flightOrigin === fromCode && flightDestination === toCode) {
-      ////////////// List //////////////
+  lists.appendChild(loading);
 
-      var list = document.createElement("div");
-      list.classList.add("reservation-list");
+  setTimeout(() => {
+    lists.removeChild(loading);
+    for (var i = 0; i < flightObjects.length; i++) {
+      var flightObject = flightObjects[i]; // Assign
+      var flightOrigin = flightObject.originAirportCode; // Assign
+      var flightDestination = flightObject.destinationAirportCode; // Assign
+      var flightDepartureTime = flightObject.departureDateTime; // Assign
+      var flightArrivalTime = flightObject.arrivalDateTime; // Assign
+      var flightStopCode = flightObject.stopAirportCode; // Assign
+      var flightPlaneAssign = flightObject.intialPlaneAssign; // Assign
 
-      ////////////// List Detail //////////////
+      if (flightOrigin === fromCode && flightDestination === toCode) {
+        ////////////// List //////////////
 
-      var listDetail = document.createElement("div");
-      listDetail.classList.add("reservation-route-detail");
+        var list = document.createElement("div");
+        list.classList.add("reservation-list");
 
-      list.appendChild(listDetail);
+        ////////////// List Detail //////////////
 
-      var timing = document.createElement("div");
-      timing.classList.add("reservation-route-timing");
+        var listDetail = document.createElement("div");
+        listDetail.classList.add("reservation-route-detail");
 
-      listDetail.appendChild(timing);
+        list.appendChild(listDetail);
 
-      var startingTime = document.createElement("div");
-      startingTime.classList.add("reservation-route-start-time");
-      startingTime.innerHTML = flightDepartureTime;
+        var timing = document.createElement("div");
+        timing.classList.add("reservation-route-timing");
 
-      var routeHours = document.createElement("div");
-      routeHours.classList.add("reservation-route-hours");
-      routeHours.innerHTML = flightStopCode.length + " Stop";
+        listDetail.appendChild(timing);
 
-      var endingTime = document.createElement("div");
-      endingTime.classList.add("reservation-route-end-time");
-      endingTime.innerHTML = flightArrivalTime;
+        var startingTime = document.createElement("div");
+        startingTime.classList.add("reservation-route-start-time");
+        startingTime.innerHTML = flightDepartureTime;
 
-      timing.appendChild(startingTime);
-      timing.appendChild(routeHours);
-      timing.appendChild(endingTime);
+        var routeHours = document.createElement("div");
+        routeHours.classList.add("reservation-route-hours");
+        routeHours.innerHTML = flightStopCode.length + " Stop";
 
-      ////////////// Route Locations //////////////
+        var endingTime = document.createElement("div");
+        endingTime.classList.add("reservation-route-end-time");
+        endingTime.innerHTML = flightArrivalTime;
 
-      var locations = document.createElement("div");
-      locations.classList.add("reservation-route-locations");
+        timing.appendChild(startingTime);
+        timing.appendChild(routeHours);
+        timing.appendChild(endingTime);
 
-      listDetail.appendChild(locations);
+        ////////////// Route Locations //////////////
 
-      var location = document.createElement("div");
-      location.classList.add("reservation-route-location");
+        var locations = document.createElement("div");
+        locations.classList.add("reservation-route-locations");
 
-      locations.appendChild(location);
+        listDetail.appendChild(locations);
 
-      var locationFromP = document.createElement("p");
-      // locationFromP.classList.add("");
-      locationFromP.innerHTML = from;
+        var location = document.createElement("div");
+        location.classList.add("reservation-route-location");
 
-      var locationToP = document.createElement("p");
-      // locationToP.classList.add("");
-      locationToP.innerHTML = to;
+        locations.appendChild(location);
 
-      location.appendChild(locationFromP);
-      location.appendChild(locationToP);
+        var locationFromP = document.createElement("p");
+        // locationFromP.classList.add("");
+        locationFromP.innerHTML = from;
 
-      ////////////// Route Stops //////////////
+        var locationToP = document.createElement("p");
+        // locationToP.classList.add("");
+        locationToP.innerHTML = to;
 
-      var stops = document.createElement("div");
-      stops.classList.add("reservation-route-stops");
+        location.appendChild(locationFromP);
+        location.appendChild(locationToP);
 
-      locations.appendChild(stops);
+        ////////////// Route Stops //////////////
 
-      if (flightOrigin !== null && flightOrigin) {
-        var dotLeft = document.createElement("div");
-        dotLeft.classList.add("reservation-route-dots");
-        stops.appendChild(dotLeft);
+        var stops = document.createElement("div");
+        stops.classList.add("reservation-route-stops");
 
-        for (var j = 0; j < airlineObjects.length; j++) {
-          var airlineObject = airlineObjects[j]; // Assign
+        locations.appendChild(stops);
 
-          var wifi = document.createElement("img");
-          wifi.classList.add("reservation-route-wifi");
+        if (flightOrigin !== null && flightOrigin) {
+          var dotLeft = document.createElement("div");
+          dotLeft.classList.add("reservation-route-dots");
+          stops.appendChild(dotLeft);
 
-          if (airlineObject.number === flightPlaneAssign.number) {
-            if (airlineObject.wifi) {
-              wifi.src = "../Images/wifi.png";
-              stops.appendChild(wifi);
-            } else {
-              wifi.src = "../Images/no-signal.png";
-              stops.appendChild(wifi);
+          for (var j = 0; j < airlineObjects.length; j++) {
+            var airlineObject = airlineObjects[j]; // Assign
+
+            var wifi = document.createElement("img");
+            wifi.classList.add("reservation-route-wifi");
+
+            if (airlineObject.number === flightPlaneAssign.number) {
+              if (airlineObject.wifi) {
+                wifi.src = "../Images/wifi.png";
+                stops.appendChild(wifi);
+              } else {
+                wifi.src = "../Images/no-signal.png";
+                stops.appendChild(wifi);
+              }
             }
           }
         }
-      }
 
-      var routes = document.createElement("div");
-      routes.classList.add("reservation-route-text");
+        var routes = document.createElement("div");
+        routes.classList.add("reservation-route-text");
 
-      for (var l = 0; l < flightStopCode.length; l++) {
-        var code = flightStopCode[l].code;
-        var plane = flightStopCode[l].planeAssign;
+        for (var l = 0; l < flightStopCode.length; l++) {
+          var code = flightStopCode[l].code;
+          var plane = flightStopCode[l].planeAssign;
 
-        for (m = 0; m < airportObjects.length; m++) {
-          var airportObject = airportObjects[m];
+          for (m = 0; m < airportObjects.length; m++) {
+            var airportObject = airportObjects[m];
 
-          if (airportObject.airportCode === code) {
-            var routeText = document.createElement("p");
-            routeText.classList.add("reservation-route-text");
-            routeText.innerHTML = airportObject.airportShortName;
-            stops.appendChild(routeText);
+            if (airportObject.airportCode === code) {
+              var routeText = document.createElement("p");
+              routeText.classList.add("reservation-route-text");
+              routeText.innerHTML = airportObject.airportShortName;
+              stops.appendChild(routeText);
 
-            if (plane !== null) {
-              for (n = 0; n < airlineObjects.length; n++) {
-                var airlineObject = airlineObjects[n];
+              if (plane !== null) {
+                for (n = 0; n < airlineObjects.length; n++) {
+                  var airlineObject = airlineObjects[n];
 
-                var wifi = document.createElement("img");
-                wifi.classList.add("reservation-route-wifi");
+                  var wifi = document.createElement("img");
+                  wifi.classList.add("reservation-route-wifi");
 
-                if (airlineObject.number === plane.number) {
-                  if (airlineObject.wifi) {
-                    wifi.src = "../Images/wifi.png";
-                    stops.appendChild(wifi);
-                  } else {
-                    wifi.src = "../Images/no-signal.png";
-                    stops.appendChild(wifi);
+                  if (airlineObject.number === plane.number) {
+                    if (airlineObject.wifi) {
+                      wifi.src = "../Images/wifi.png";
+                      stops.appendChild(wifi);
+                    } else {
+                      wifi.src = "../Images/no-signal.png";
+                      stops.appendChild(wifi);
+                    }
                   }
                 }
               }
             }
           }
         }
-      }
 
-      // stops.appendChild(routes);
+        // stops.appendChild(routes);
 
-      if (flightDestination !== null && flightDestination) {
-        dotRight = document.createElement("div");
-        dotRight.classList.add("reservation-route-dots");
-        stops.appendChild(dotRight);
-      }
+        if (flightDestination !== null && flightDestination) {
+          dotRight = document.createElement("div");
+          dotRight.classList.add("reservation-route-dots");
+          stops.appendChild(dotRight);
+        }
 
-      var stopsLine = document.createElement("div");
-      stopsLine.classList.add("reservation-route-line");
+        var stopsLine = document.createElement("div");
+        stopsLine.classList.add("reservation-route-line");
 
-      stops.appendChild(stopsLine);
+        stops.appendChild(stopsLine);
 
-      ////////////// Waiting Time //////////////s
+        ////////////// Waiting Time //////////////s
 
-      var waitingTime = document.createElement("div");
-      waitingTime.classList.add("reservation-route-waiting-time");
+        var waitingTime = document.createElement("div");
+        waitingTime.classList.add("reservation-route-waiting-time");
 
-      locations.appendChild(waitingTime);
+        locations.appendChild(waitingTime);
 
-      for (o = 0; o < flightStopCode.length; o++) {
-        var code = flightStopCode[o].code;
-        var time = flightStopCode[o].waitingTime;
+        for (o = 0; o < flightStopCode.length; o++) {
+          var code = flightStopCode[o].code;
+          var time = flightStopCode[o].waitingTime;
 
-        for (p = 0; p < airportObjects.length; p++) {
-          var airportObject = airportObjects[p];
-          if (airportObject.airportCode === code) {
-            var waitingTimeText = document.createElement("p");
-            waitingTimeText.innerHTML = "+ " + time;
-            waitingTime.appendChild(waitingTimeText);
+          for (p = 0; p < airportObjects.length; p++) {
+            var airportObject = airportObjects[p];
+            if (airportObject.airportCode === code) {
+              var waitingTimeText = document.createElement("p");
+              waitingTimeText.innerHTML = "+ " + time;
+              waitingTime.appendChild(waitingTimeText);
+            }
           }
         }
+
+        ////////////// Price Details //////////////
+
+        var priceDetailEconomy = document.createElement("div");
+        priceDetailEconomy.classList.add("reservation-price-detail");
+
+        list.appendChild(priceDetailEconomy);
+
+        var priceEconomyPrice = document.createElement("p");
+        priceEconomyPrice.innerHTML = "$" + flightObject.economy;
+
+        var priceEconomyText = document.createElement("p");
+        priceEconomyText.innerHTML = "";
+
+        priceDetailEconomy.appendChild(priceEconomyPrice);
+        priceDetailEconomy.appendChild(priceEconomyText);
+
+        var priceDetailPremium = document.createElement("div");
+        priceDetailPremium.classList.add("reservation-price-detail");
+
+        list.appendChild(priceDetailPremium);
+
+        var pricePremiumPrice = document.createElement("p");
+        pricePremiumPrice.innerHTML = "$" + flightObject.premium;
+
+        var pricePremiumText = document.createElement("p");
+        pricePremiumText.innerHTML = "Mixed cabin";
+
+        priceDetailPremium.appendChild(pricePremiumPrice);
+        priceDetailPremium.appendChild(pricePremiumText);
+
+        var priceDetailBusiness = document.createElement("div");
+        priceDetailBusiness.classList.add("reservation-price-detail");
+
+        list.appendChild(priceDetailBusiness);
+
+        var priceBusinessPrice = document.createElement("p");
+        priceBusinessPrice.innerHTML = "$" + flightObject.business;
+
+        var priceBusinessText = document.createElement("p");
+        priceBusinessText.innerHTML = "Includes lie-flat seats";
+
+        priceDetailBusiness.appendChild(priceBusinessPrice);
+        priceDetailBusiness.appendChild(priceBusinessText);
+
+        array.push(list);
+        lists.appendChild(list);
       }
-
-      ////////////// Price Details //////////////
-
-      var priceDetailEconomy = document.createElement("div");
-      priceDetailEconomy.classList.add("reservation-price-detail");
-
-      list.appendChild(priceDetailEconomy);
-
-      var priceEconomyPrice = document.createElement("p");
-      priceEconomyPrice.innerHTML = "$" + flightObject.economy;
-
-      var priceEconomyText = document.createElement("p");
-      priceEconomyText.innerHTML = "";
-
-      priceDetailEconomy.appendChild(priceEconomyPrice);
-      priceDetailEconomy.appendChild(priceEconomyText);
-
-      var priceDetailPremium = document.createElement("div");
-      priceDetailPremium.classList.add("reservation-price-detail");
-
-      list.appendChild(priceDetailPremium);
-
-      var pricePremiumPrice = document.createElement("p");
-      pricePremiumPrice.innerHTML = "$" + flightObject.premium;
-
-      var pricePremiumText = document.createElement("p");
-      pricePremiumText.innerHTML = "Mixed cabin";
-
-      priceDetailPremium.appendChild(pricePremiumPrice);
-      priceDetailPremium.appendChild(pricePremiumText);
-
-      var priceDetailBusiness = document.createElement("div");
-      priceDetailBusiness.classList.add("reservation-price-detail");
-
-      list.appendChild(priceDetailBusiness);
-
-      var priceBusinessPrice = document.createElement("p");
-      priceBusinessPrice.innerHTML = "$" + flightObject.business;
-
-      var priceBusinessText = document.createElement("p");
-      priceBusinessText.innerHTML = "Includes lie-flat seats";
-
-      priceDetailBusiness.appendChild(priceBusinessPrice);
-      priceDetailBusiness.appendChild(priceBusinessText);
-
-      array.push(list);
-      lists.appendChild(list);
     }
-  }
+  }, 5000);
+
   var flightFound = document.querySelector(".reservation-detail");
   flightFound.innerHTML = `Flight results: ${array.length} flights found`;
 }
 
 function reservationFlights() {
+  var from = document.form.from;
+  var to = document.form.to;
   if (
     (from.value === "Please Select" || from.value === "PLEASE SELECT") &&
     (to.value === "Please Select" || to.value === "PLEASE SELECT")
@@ -955,9 +956,12 @@ function reservationFlights() {
 }
 
 function reservationOnLoad() {
-  if (ways === "two") {
-    journey = 1.5;
-  }
+  var from = document.form.from;
+  var to = document.form.to;
+  var formOption;
+
+  var adult = document.form.adult;
+  var child = document.form.child;
 
   for (i = 0; i < airportObjects.length; i++) {
     var airportObject = airportObjects[i]; // Assign
