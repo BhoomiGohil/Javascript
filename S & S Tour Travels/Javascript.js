@@ -41,12 +41,12 @@ var phoneFormat = /^\d{10}$/;
 var alphabetFormat = /^[A-Za-z]+$/;
 
 function inputFocus(input) {
-  input.previousElementSibling.style.display = "none";
+  // input.previousElementSibling.style.display = "none";
   input.previousElementSibling.innerHTML = "";
 }
 
 function errorMessage(input, message) {
-  input.previousElementSibling.style.display = "block";
+  // input.previousElementSibling.style.display = "block";
   input.previousElementSibling.innerHTML = message;
 }
 
@@ -479,6 +479,47 @@ var flightObjects = [
     ),
   },
   {
+    flightId: 65476,
+    flightNumber: 362,
+    departureDateTime: "11:00 AM",
+    arrivalDateTime: "1:00 PM",
+    originAirportCode: airportObjects[0].airportCode,
+    destinationAirportCode: airportObjects[2].airportCode,
+    availableSeats: Math.floor(Math.random() * 200),
+    intialPlaneAssign: airlineObjects[0],
+    stopAirportCode: [
+      {
+        code: airportObjects[1].airportCode,
+        waitingTime: "2hr 35min",
+        planeAssign: airlineObjects[2],
+      },
+    ],
+    economy: Math.floor(
+      measureKm(
+        airportObjects[0].cooridates.laltitude,
+        airportObjects[0].cooridates.longitude,
+        airportObjects[2].cooridates.laltitude,
+        airportObjects[2].cooridates.longitude
+      ) * economicPrice
+    ),
+    premium: Math.floor(
+      measureKm(
+        airportObjects[0].cooridates.laltitude,
+        airportObjects[0].cooridates.longitude,
+        airportObjects[2].cooridates.laltitude,
+        airportObjects[2].cooridates.longitude
+      ) * premiumPrice
+    ),
+    business: Math.floor(
+      measureKm(
+        airportObjects[0].cooridates.laltitude,
+        airportObjects[0].cooridates.longitude,
+        airportObjects[2].cooridates.laltitude,
+        airportObjects[2].cooridates.longitude
+      ) * businessPrice
+    ),
+  },
+  {
     flightId: 73561,
     flightNumber: 273,
     departureDateTime: "11:00 AM",
@@ -643,6 +684,8 @@ function ChangeStartDate() {
 function flights(from, to) {
   var lists = document.querySelector(".reservation-lists");
   var list = document.querySelectorAll(".reservation-list");
+
+  var array = [];
 
   for (var i = 1; i < list.length; i++) {
     lists.removeChild(list[i]);
@@ -871,9 +914,12 @@ function flights(from, to) {
       priceDetailBusiness.appendChild(priceBusinessPrice);
       priceDetailBusiness.appendChild(priceBusinessText);
 
+      array.push(list);
       lists.appendChild(list);
     }
   }
+  var flightFound = document.querySelector(".reservation-detail");
+  flightFound.innerHTML = `Flight results: ${array.length} flights found`;
 }
 
 function reservationFlights() {
