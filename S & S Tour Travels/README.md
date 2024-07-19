@@ -1,15 +1,14 @@
 # Tour and Travels
 
-There are two folder in this project one with dummy data and another one with Database.
+This project has two folders: one project using dummy data and the other utilizing the database.
 
-How to run both projects?
+How to Run Both Projects?
 
-1. Dummy Data and local Storage project can run using live server in Visual Studio.
-   Go to Extensions -> Search for live server and install it.
+1. Dummy Data and Local Storage Project:
+   . Run using the live server in Visual Studio:
+   . . Navigate to Extensions -> Search for "Live Server" and install it.
 
-2.
-
-Project Visuals
+2. Work in Progress.
 
 <img src="./Website Images/Home.png">
 
