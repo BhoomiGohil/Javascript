@@ -1,11 +1,16 @@
-# HTML-CSS-JavaScript-Tour-Travels
+# Tour and Travels
 
-It is simple design made by HTML , CSS and JavaScript.
+There are two folder in this project one with dummy data and another one with Database.
 
-Home Page...
+How to run both projects?
+
+1. Dummy Data and local Storage project can run using live server in Visual Studio.
+   Go to Extensions -> Search for live server and install it.
+
+2.
+
+Project Visuals
 
 <img src="./Website Images/Home.png">
-
-Login Page...
 
 <img src="./Website Images/Login.png">
