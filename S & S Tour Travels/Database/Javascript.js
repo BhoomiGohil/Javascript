@@ -231,27 +231,27 @@ var imageArray, sliderImageLength, randomIndex;
 function grabArrayObjectData() {
   imageArray = [
     {
-      image: "../Images/Place1.gif",
+      image: "../../Images/Place1.gif",
       title: "London",
     },
     {
-      image: "../Images/Place2.gif",
+      image: "../../Images/Place2.gif",
       title: "Venice",
     },
     {
-      image: "../Images/Place3.gif",
+      image: "../../Images/Place3.gif",
       title: "New Zealand",
     },
     {
-      image: "../Images/Place4.gif",
+      image: "../../Images/Place4.gif",
       title: "Goa",
     },
     {
-      image: "../Images/Place5.gif",
+      image: "../../Images/Place5.gif",
       title: "Jammu and Kashmir",
     },
     {
-      image: "../Images/Place6.gif",
+      image: "../../Images/Place6.gif",
       title: "Australia",
     },
   ];
@@ -693,7 +693,7 @@ function flights(from, to) {
 
   var loading = document.createElement("img");
   loading.classList.add("reservation-loading");
-  loading.src = "../Images/loading.jpeg";
+  loading.src = "../../Images/loading.jpeg";
 
   lists.appendChild(loading);
 
@@ -785,10 +785,10 @@ function flights(from, to) {
 
             if (airlineObject.number === flightPlaneAssign.number) {
               if (airlineObject.wifi) {
-                wifi.src = "../Images/wifi.png";
+                wifi.src = "../../Images/wifi.png";
                 stops.appendChild(wifi);
               } else {
-                wifi.src = "../Images/no-signal.png";
+                wifi.src = "../../Images/no-signal.png";
                 stops.appendChild(wifi);
               }
             }
@@ -820,10 +820,10 @@ function flights(from, to) {
 
                   if (airlineObject.number === plane.number) {
                     if (airlineObject.wifi) {
-                      wifi.src = "../Images/wifi.png";
+                      wifi.src = "../../Images/wifi.png";
                       stops.appendChild(wifi);
                     } else {
-                      wifi.src = "../Images/no-signal.png";
+                      wifi.src = "../../Images/no-signal.png";
                       stops.appendChild(wifi);
                     }
                   }
