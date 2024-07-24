@@ -3,19 +3,23 @@
 var grabLocalStorageSignIn = localStorage.getItem("SignIn") || "[]";
 
 function checkLocalStorageSignin() {
+  var login = document.querySelector("#headerLogin");
+  var logout = document.querySelector("#headerLogin");
+  var profile = document.querySelector("#headerLogin");
   if (grabLocalStorageSignIn === "[]" || grabLocalStorageSignIn === null) {
-    document.querySelector("#headerLogin").style.display = "flex";
-    document.querySelector("#headerLogout").style.display = "none";
-    document.querySelector("#headerProfile").style.display = "none";
+    login.style.display = "flex";
+    logout.style.display = "none";
+    profile.style.display = "none";
   } else {
-    document.querySelector("#headerLogin").style.display = "none";
-    document.querySelector("#headerLogout").style.display = "flex";
-    document.querySelector("#headerProfile").style.display = "block";
+    login.style.display = "none";
+    logout.style.display = "flex";
+    profile.style.display = "block";
 
-    data = JSON.parse(grabLocalStorageSignIn);
+    var data = JSON.parse(grabLocalStorageSignIn);
 
-    user = `${data.title} ${data.firstname} ${data.lastname}`;
-    address = `${data.address} ${data.city} ${data.state} ${data.country}`;
+    var user = `${data.title} ${data.firstname} ${data.lastname}`;
+    var address = `${data.address} ${data.city} ${data.state} ${data.country}`;
+
     document.querySelector("#DBuser").innerHTML = user;
     document.querySelector("#DBaddress").innerHTML = address;
     document.querySelector("#DBemail").innerHTML = `${data.email} `;
@@ -31,6 +35,15 @@ function logout() {
   document.querySelector("#headerLogin").style.display = "flex";
   document.querySelector("#headerLogout").style.display = "none";
   document.querySelector("#headerProfile").style.display = "none";
+}
+
+////////////////////////// Login Grab Registration LocalStorage Code ////////////////////////////////
+
+function grabLocalStorageRegistration() {
+  var getRegistrations = localStorage.getItem("Registration") || "[]";
+  getRegistrations = JSON.parse(getRegistrations);
+
+  return getRegistrations;
 }
 
 //////////////////////////// Form validation code ////////////////////////////////
@@ -265,9 +278,11 @@ function grabArrayObjectData() {
 ////////////////////////// Home Slider Code ////////////////////////////////
 
 function homeImageChange(randomIndex) {
-  document.querySelector(".slider-image").src = imageArray[randomIndex].image;
-  document.querySelector(".slider-title").innerHTML =
-    imageArray[randomIndex].title;
+  var imageEl = document.querySelector(".slider-image");
+  var imageTitleEl = document.querySelector(".slider-title");
+
+  imageEl.src = imageArray[randomIndex].image;
+  imageTitleEl.innerHTML = imageArray[randomIndex].title;
 }
 
 function homeSliderButton(text) {
@@ -997,12 +1012,16 @@ function reservationOnLoad() {
 
   Date.prototype.addDays = function (days) {
     this.setDate(this.getDate() + days);
+    console.log(this.setDate(this.getDate() + days));
+    console.log(this);
     return this;
   };
 
   var sevenDays = new Date().addDays(7);
   var fourteenDays = new Date().addDays(14);
   var yearDays = new Date().addDays(365);
+
+  console.log(sevenDays);
 
   function dateConvert(date) {
     return date.toISOString().split("T")[0];
@@ -1031,15 +1050,6 @@ function signUpButton() {
 function signInButton() {
   document.querySelector(".login").style.display = "grid";
   document.querySelector(".registration").style.display = "none";
-}
-
-////////////////////////// Login Grab Registration LocalStorage Code ////////////////////////////////
-
-function grabLocalStorageRegistration() {
-  var getRegistrations = localStorage.getItem("Registration") || "[]";
-  getRegistrations = JSON.parse(getRegistrations);
-
-  return getRegistrations;
 }
 
 ////////////////////////// Login Slider Code ////////////////////////////////
