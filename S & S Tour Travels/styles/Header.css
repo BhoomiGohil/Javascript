@@ -44,7 +44,8 @@ header {
   display: flex;
 }
 
-#headerLogout {
+#headerLogout,
+#headerProfile {
   display: none;
 }
 

@@ -4,8 +4,8 @@ var grabLocalStorageSignIn = localStorage.getItem("SignIn") || "[]";
 
 function checkLocalStorageSignin() {
   var login = document.querySelector("#headerLogin");
-  var logout = document.querySelector("#headerLogin");
-  var profile = document.querySelector("#headerLogin");
+  var logout = document.querySelector("#headerLogout");
+  var profile = document.querySelector("#headerProfile");
   if (grabLocalStorageSignIn === "[]" || grabLocalStorageSignIn === null) {
     login.style.display = "flex";
     logout.style.display = "none";
@@ -14,27 +14,34 @@ function checkLocalStorageSignin() {
     login.style.display = "none";
     logout.style.display = "flex";
     profile.style.display = "block";
-
-    var data = JSON.parse(grabLocalStorageSignIn);
-
-    var user = `${data.title} ${data.firstname} ${data.lastname}`;
-    var address = `${data.address} ${data.city} ${data.state} ${data.country}`;
-
-    document.querySelector("#DBuser").innerHTML = user;
-    document.querySelector("#DBaddress").innerHTML = address;
-    document.querySelector("#DBemail").innerHTML = `${data.email} `;
-    document.querySelector("#DBphone").innerHTML = `${data.phone} `;
-    document.querySelector("#DBpassword").innerHTML = `${data.password} `;
   }
 }
 
 checkLocalStorageSignin();
 
+function profileOnLoad() {
+  var data = JSON.parse(grabLocalStorageSignIn);
+
+  var user = `${data.title} ${data.firstname} ${data.lastname}`;
+  var address = `${data.address} ${data.city} ${data.state} ${data.country}`;
+
+  document.querySelector("#DBuser").innerHTML = user;
+  document.querySelector("#DBaddress").innerHTML = address;
+  document.querySelector("#DBemail").innerHTML = `${data.email} `;
+  document.querySelector("#DBphone").innerHTML = `${data.phone} `;
+  document.querySelector("#DBpassword").innerHTML = `${data.password} `;
+}
+
 function logout() {
+  var login = document.querySelector("#headerLogin");
+  var logout = document.querySelector("#headerLogout");
+  var profile = document.querySelector("#headerProfile");
+
   localStorage.setItem("SignIn", "[]");
-  document.querySelector("#headerLogin").style.display = "flex";
-  document.querySelector("#headerLogout").style.display = "none";
-  document.querySelector("#headerProfile").style.display = "none";
+
+  login.style.display = "flex";
+  logout.style.display = "none";
+  profile.style.display = "none";
 }
 
 ////////////////////////// Login Grab Registration LocalStorage Code ////////////////////////////////
@@ -686,10 +693,12 @@ function ChangeStartDate() {
 }
 
 function flights(from, to) {
+  var flightFound = document.querySelector(".reservation-detail");
   var lists = document.querySelector(".reservation-lists");
   var list = document.querySelectorAll(".reservation-list");
+  var count = 0;
 
-  var array = [];
+  flightFound.innerHTML = `Flight results: ${count} flights found`;
 
   for (var i = 1; i < list.length; i++) {
     lists.removeChild(list[i]);
@@ -926,14 +935,12 @@ function flights(from, to) {
         priceDetailBusiness.appendChild(priceBusinessPrice);
         priceDetailBusiness.appendChild(priceBusinessText);
 
-        array.push(list);
+        count++;
         lists.appendChild(list);
       }
+      flightFound.innerHTML = `Flight results: ${count} flights found`;
     }
   }, Math.floor(Math.random() * 5000) + 1000);
-
-  var flightFound = document.querySelector(".reservation-detail");
-  flightFound.innerHTML = `Flight results: ${array.length} flights found`;
 }
 
 function reservationFlights() {
@@ -1012,16 +1019,12 @@ function reservationOnLoad() {
 
   Date.prototype.addDays = function (days) {
     this.setDate(this.getDate() + days);
-    console.log(this.setDate(this.getDate() + days));
-    console.log(this);
     return this;
   };
 
   var sevenDays = new Date().addDays(7);
   var fourteenDays = new Date().addDays(14);
   var yearDays = new Date().addDays(365);
-
-  console.log(sevenDays);
 
   function dateConvert(date) {
     return date.toISOString().split("T")[0];
